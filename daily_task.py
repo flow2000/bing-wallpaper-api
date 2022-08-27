@@ -48,6 +48,8 @@ secretKey = "your secret_key"
 bucketName = "your bucket_name"
 # 是否开启邮箱通知
 enabled_email = True
+# 是否创建图片副本并压缩（需要安装ffmpeg）
+enabled_compress = False
 # 邮箱STMP服务器
 mail_host="your STMP server"  
 # 用户名
@@ -265,7 +267,18 @@ def create_json(filename):
         res_dict["msg"]="操作成功"
         res_dict["data"]=tmp_dict
         write_json(str(page+1)+".json",res_dict)
-        
+    
+def compress_pictrue(filename,img_path):
+    mkdir(img_path.replace("bing","compress-bing"))
+    in_path = img_path+filename
+    out_path = img_path.replace("bing","compress-bing")+filename
+    if not os.path.exists(out_path):
+        # 命令编辑
+        cmd_line = "ffmpeg -i "+in_path+" -q 20 -vf scale=-1:768 -y "+out_path
+        # 调用命令行
+        os.system(cmd_line)
+        logging.info("制作图片封面："+out_path)
+
 # # 创建图片url链接文件
 # def create_rand():
 #     url_list=[]
@@ -288,6 +301,8 @@ try:
     logging.info(img_url+"下载成功")
     hash = upload_file(filename,img_path,"bing/"+str(year)+"/")
     create_json(filename)
+    if enabled_compress:
+        compress_pictrue(filename,img_path)
     send_email("服务端定时任务：必应每日任务","第"+str(days)+"次执行python定时任务成功！")
 except Exception as ex:
     send_email("执行python定时任务时发生错误信息:",traceback.format_exc())

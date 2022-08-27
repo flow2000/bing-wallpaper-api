@@ -84,8 +84,8 @@ total_page=get_total_page()
 start_page=get_current_page()
 for i in range(start_page,total_page+1):
     print("正在下载第"+str(i)+"页……")
-    # 休眠一秒防止api限流
-    # time.sleep(1)
+    # 休眠0.1秒防止api限流
+    time.sleep(0.1)
     url = "http://bing.panghai.top/json/"+str(i)
     data = json.loads(requests.get(url, headers=headers).text)
     lists = data['data']['data']
