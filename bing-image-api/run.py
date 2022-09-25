@@ -14,7 +14,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
 from utils import mogodb_utils
 
-os.environ["MONGODB_URI"]="mongodb://127.0.0.1:27017/"
+# os.environ["MONGODB_URI"]="mongodb://127.0.0.1:27017/"
 
 JSON_URL="https://bing.json1.shinie.top/"
 IMG_URL="https://cn.bing.com/HPImageArchive.aspx?n=1&format=js&idx=0"
