@@ -11,6 +11,8 @@ from fastapi.responses import StreamingResponse
 from fastapi.responses import RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
+import asyncio
+import aiohttp
 from pymongo import MongoClient
 from colorama import init
 init(autoreset=True)
@@ -35,6 +37,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+VERSION="2.0.1"
+
+
 BINGAPI='https://cn.bing.com/HPImageArchive.aspx?n=1&format=js&idx=0'
 BINGURL='https://cn.bing.com'
 W=[1920,1366,1280,1024,800,768,720,640,480,400,320,240]
@@ -49,7 +54,29 @@ async def index():
     - current_version:当前版本
     - latest_version:最新版本
     '''
-    return {"code": "200","msg":"BingAPI 部署成功 ","current_version":"0.0.1","latest_version": "0.0.1"}
+    latest_version=""
+    try:
+        async with aiohttp.ClientSession() as session:
+            version_links=[
+                "https://blog.panghai.top/code/txt/version/bing-api.txt",
+                "https://static.panghai.top/txt/version/bing-api.txt",
+            ]
+            tasks = [asyncio.create_task(fetch(session, link)) for link in version_links]
+            done, pending = await asyncio.wait(tasks)
+            for d in done:
+                if len(d.result())<10:
+                    latest_version = d.result()
+                    break
+            if latest_version=="":
+                raise Exception("无法请求文件")
+    except Exception as e:
+        print(e)
+        return {"code": "200","msg":"BingAPI 获取不到最新版本（仍可使用），请联系：https://github.com/flow2000/bing-api","current_version":VERSION}
+    return {"code": "200","msg":"BingAPI 部署成功 ","current_version":VERSION,"latest_version": latest_version}
+
+async def fetch(session, url):
+    async with session.get(url, verify_ssl=False) as response:
+        return await response.text()
 
 @app.get("/favicon.ico",tags=["INFO"], summary="返回图标")
 async def favicon():
@@ -106,6 +133,8 @@ async def all(page: int = 1, limit: int = 10, order: str="desc", w: int = 1920, 
     elif order == "asc":
         order = 1
     else:
+        return {'code':500,'msg':'请求参数错误'}
+    if page<=0 or limit<=0 or limit >100:
         return {'code':500,'msg':'请求参数错误'}
     query_params={
         "page":page,
