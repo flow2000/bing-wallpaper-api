@@ -40,7 +40,7 @@ app.add_middleware(
 VERSION="2.0.1"
 
 
-BINGAPI='https://cn.bing.com/HPImageArchive.aspx?n=1&format=js&idx=0'
+BINGAPI='https://cn.bing.com/HPImageArchive.aspx?n=1&format=js&idx=0&mkt=zh-CN'
 BINGURL='https://cn.bing.com'
 W=[1920,1366,1280,1024,800,768,720,640,480,400,320,240]
 H=[1200,1080,768,600,480,1280,800,240,320]
