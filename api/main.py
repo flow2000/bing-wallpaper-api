@@ -72,7 +72,7 @@ async def index():
         "current_version":settings.VERSION,
         "latest_version":latest_version
     }
-    return BingResponse.success(msg="BingAPI 部署成功，详情可查看文档：",data=data)
+    return BingResponse.success(msg="BingAPI 部署成功，详情可查看文档：https://www.apifox.cn/apidoc/shared-961673e6-161d-4129-88b6-e7b0a3b86cf1",data=data)
 
 async def fetch(session, url):
     async with session.get(url, verify_ssl=False) as response:
