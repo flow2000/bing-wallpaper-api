@@ -19,7 +19,7 @@
 获取今日壁纸
 
 ```shell
-https://bing.shinie.top/today?w=1920&h=1080
+https://bing.shinie.top/today?w=1920&h=1080&mkt=zh-CN
 ```
 
 | 参数名 |   类型   | 是否必要 |        备注        |
@@ -32,7 +32,7 @@ https://bing.shinie.top/today?w=1920&h=1080
 获取随机壁纸
 
 ```shell
-https://bing.shinie.top/random?w=1920&h=1080
+https://bing.shinie.top/random?w=1920&h=1080&mkt=zh-CN
 ```
 
 | 参数名 |   类型   | 是否必要 |        备注        |
@@ -45,7 +45,7 @@ https://bing.shinie.top/random?w=1920&h=1080
 获取壁纸JSON数据
 
 ```shell
-https://bing.shinie.top/all?page=1&order=asc&limit=10&w=1920&h=1080
+https://bing.shinie.top/all?page=1&order=asc&limit=10&w=1920&h=1080&mkt=zh-CN
 ```
 
 | 参数名 |   类型   | 是否必要 |              备注               |
