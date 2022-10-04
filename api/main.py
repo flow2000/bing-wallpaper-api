@@ -18,8 +18,8 @@ init(autoreset=True)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
-from bing_walpaper import settings 
-from bing_walpaper.utils import util
+from bing_wallpaper import settings 
+from bing_wallpaper.utils import util
 from api import BingResponse
 from mongodbapi import *
 
