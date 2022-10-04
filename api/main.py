@@ -7,6 +7,7 @@ import sys
 import os
 
 from fastapi import FastAPI
+from fastapi.responses import StreamingResponse
 from fastapi.responses import RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
@@ -76,6 +77,13 @@ async def index():
 async def fetch(session, url):
     async with session.get(url, verify_ssl=False) as response:
         return await response.text()
+
+@app.get("/favicon.ico",tags=["INFO"], summary="返回图标")
+async def favicon():
+    '''
+    - 返回图标
+    '''
+    return StreamingResponse(open('favicon.ico', mode="rb"), media_type="image/jpg")
 
 @app.get("/today",tags=["API"], summary="返回今日壁纸")
 async def latest(w: str = "1920", h: str = "1080", uhd: bool = False, mkt: str = "zh-CN"):

@@ -2,7 +2,9 @@
     "version": 2,
     "public": true,
     "routes": [
-        { "src": "/api/.*", "dest": "api/main.py" },
-        { "src": "/favicon.ico", "dest": "./favicon.ico" }
+        {
+            "src": "/",
+            "dest": "api/main.py"
+        }
     ]
 }
