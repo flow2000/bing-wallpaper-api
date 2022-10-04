@@ -1,15 +1,14 @@
-name: update-bing-image-api
+name: update-bing-walpaper
 
 on:
   push:
     branches:
      - master
   schedule:
-   - cron: "0 0,6,12,18,21 * * *"
-  watch:
-    types: [started]
+   - cron: "30 0,18 * * *"
 
 env:
+  STORAGE_TYPE: mongodb
   # mongodb配置
   MONGODB_URI: ${{ secrets.MONGODB_URI }}
 
@@ -26,13 +25,14 @@ jobs:
         python-version: 3.8
 
      - name: Install Requirements
-       working-directory: ./bing-image-api
+       working-directory: ./bing_walpaper
        run: |
          pip install -r requirements.txt
  
-     - name: mongodb Update bing #mongodb
+     - name: mongodb Update bing
+       if: ${{ env.STORAGE_TYPE == 'sqlite' }}  
        env:
         MONGODB_URI: ${{ secrets.MONGODB_URI }}
-       working-directory: ./bing-image-api
+       working-directory: ./
        run: |
-         python run.py
+         python bing_walpaper/run.py
