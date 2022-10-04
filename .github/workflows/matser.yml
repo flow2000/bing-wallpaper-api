@@ -25,14 +25,14 @@ jobs:
         python-version: 3.8
 
      - name: Install Requirements
-       working-directory: ./bing_wallpaper
+       working-directory: ./bing_api
        run: |
          pip install -r requirements.txt
  
      - name: mongodb Update bing
-       if: ${{ env.STORAGE_TYPE == 'sqlite' }}  
+       if: ${{ env.STORAGE_TYPE == 'mongodb' }}  
        env:
         MONGODB_URI: ${{ secrets.MONGODB_URI }}
        working-directory: ./
        run: |
-         python bing_wallpaper/run.py
+         python bing_api/run.py
