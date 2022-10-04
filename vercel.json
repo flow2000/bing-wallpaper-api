@@ -3,7 +3,7 @@
     "public": true,
     "routes": [
         {
-            "src": "/",
+            "src": "/.*",
             "dest": "api/main.py"
         }
     ]
