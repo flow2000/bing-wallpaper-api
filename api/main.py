@@ -21,7 +21,7 @@ sys.path.append(BASE_DIR)
 from bing_wallpaper import settings 
 from bing_wallpaper.utils import util
 from api import BingResponse
-from mongodbapi import *
+from api.mongodbapi import *
 
 app = FastAPI()
 
