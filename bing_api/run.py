@@ -56,6 +56,8 @@ def add_data_to_json():
             json_data=json.loads(requests.get(settings.BINGAPI).text)['images'][0]
             bing_lists.insert(0, json_data)
             bing_json_data['data']=bing_lists
+            bing_json_data['update_time']=time.strftime("%Y-%m-%d %H:%M:%S",time.localtime())
+            bing_json_data['total']=len(bing_lists)
             write_json(mkt,bing_json_data)
         else:
             print("json:"+mkt+":暂无添加数据")
@@ -66,7 +68,7 @@ def read_json(run_type):
 
 def write_json(run_type,data):
     with open(f'data/{run_type}_all.json', 'w', encoding="utf-8") as f:
-        json.dump(data,f, ensure_ascii=False)
+        json.dump(data,f, indent=2, ensure_ascii=False)
                 
 if __name__=='__main__':
     init_data_to_database()
