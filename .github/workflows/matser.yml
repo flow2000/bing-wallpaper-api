@@ -5,7 +5,7 @@ on:
     branches:
      - master
   schedule:
-   - cron: "0 0/1 * * *"
+   - cron: "30 0 * * *"
 
 env:
   STORAGE_TYPE: mongodb
