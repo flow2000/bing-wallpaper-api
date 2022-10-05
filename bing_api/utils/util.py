@@ -16,7 +16,7 @@ def get_data(id,url):
     json_data['url']=settings.BINGURL+bing_json_data['images'][0]['url'].replace("&rf=LaDigue_1920x1080.jpg&pid=hp","")
     json_data['datetime']=str(time.strftime('%Y-%m-%d', time.localtime()))
     json_data['copyright']=bing_json_data['images'][0]['copyright']
-    json_data['copyrightlink']=bing_json_data['copyrightlink']
+    json_data['copyrightlink']=bing_json_data['images'][0]['copyrightlink']
     json_data['hsh']=bing_json_data['images'][0]['hsh']
     json_data['created_time']=str(time.strftime('%Y-%m-%d', time.localtime()))
     return json_data
