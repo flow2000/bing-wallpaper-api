@@ -29,9 +29,9 @@ def init_data_to_database():
 def add_data_to_database():
     for mkt in settings.LOCATION:
         count = get_count(mkt)
-        if query_latest_one(mkt)['datetime']!=time.strftime('%Y-%m-%d', time.localtime()):
-            url = settings.BINGAPI+"&mkt="+mkt
-            json_data=util.get_data(count,url)
+        url = settings.BINGAPI+"&mkt="+mkt
+        json_data=util.get_data(count,url)
+        if query_latest_one(mkt)['datetime']!=json_data['datetime']:
             insert_one(mkt,json_data)
             first_data = query_first_one(mkt)
             latest_data = query_latest_one(mkt)
@@ -48,7 +48,9 @@ def add_data_to_json():
         bing_lists=bing_json_data['data']
         timearray=time.strptime(str(bing_lists[0]['enddate']),'%Y%m%d')
         datetime=time.strftime('%Y-%m-%d', timearray)
-        NOW_DATE=time.strftime('%Y-%m-%d', time.localtime())
+        url = settings.BINGAPI+"&mkt="+mkt
+        json_data=util.get_data(len(bing_lists),url)
+        NOW_DATE=json_data['datetime']
         if datetime!=NOW_DATE:
             print("json:"+mkt+":已添加"+NOW_DATE+"数据")
             json_data=json.loads(requests.get(settings.BINGAPI).text)['images'][0]
