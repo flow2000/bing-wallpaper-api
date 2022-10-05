@@ -50,10 +50,9 @@ def add_data_to_json():
         datetime=time.strftime('%Y-%m-%d', timearray)
         url = settings.BINGAPI+"&mkt="+mkt
         json_data=util.get_data(len(bing_lists),url)
-        NOW_DATE=json_data['datetime']
-        if datetime!=NOW_DATE:
-            print("json:"+mkt+":已添加"+NOW_DATE+"数据")
-            json_data=json.loads(requests.get(settings.BINGAPI).text)['images'][0]
+        if datetime!=json_data['datetime']:
+            print(mkt+":已添加"+NOW_DATE+"json数据")
+            json_data=json.loads(requests.get(url).text)['images'][0]
             bing_lists.insert(0, json_data)
             bing_json_data['data']=bing_lists
             bing_json_data['update_time']=time.strftime("%Y-%m-%d %H:%M:%S",time.localtime())
