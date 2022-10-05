@@ -1,11 +1,28 @@
 {
-  "update_time": "2022-10-05 01:36:44",
+  "update_time": "2022-10-05 01:53:05",
   "total": 161,
   "language": "en-IN",
   "message": "ok",
   "status": true,
   "success": true,
   "data": [
+    {
+      "startdate": "20221004",
+      "fullstartdate": "202210041830",
+      "enddate": "20221005",
+      "url": "/th?id=OHR.RavanaDussehra_EN-IN6325474614_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+      "urlbase": "/th?id=OHR.RavanaDussehra_EN-IN6325474614",
+      "copyright": "Effigies of Ravana, Meghanada, and Kumbhakarna in New Delhi, India (© Prakash Singh/Staff/AFP/Getty Images)",
+      "copyrightlink": "https://www.bing.com/search?q=Vijayadashami&form=hpcapt&filters=HpDate%3a%2220221004_1830%22",
+      "title": "The victory of good over evil",
+      "quiz": "/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20221004_RavanaDussehra%22&FORM=HPQUIZ",
+      "wp": false,
+      "hsh": "174bd0f3adc09ad6148ef7aa40ec706c",
+      "drk": 1,
+      "top": 1,
+      "bot": 1,
+      "hs": []
+    },
     {
       "startdate": "20221003",
       "fullstartdate": "202210031830",
