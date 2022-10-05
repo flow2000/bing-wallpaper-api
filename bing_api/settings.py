@@ -17,10 +17,10 @@ DEPLOY_TYPE = "github"
 VERSION="3.0.0"
 
 # 必应接口
-BINGAPI='https://cn.bing.com/HPImageArchive.aspx?n=1&format=js&idx=0'
+BINGAPI='https://bing.com/HPImageArchive.aspx?n=1&format=js&idx=0'
 
 # 必应URL
-BINGURL='https://cn.bing.com'
+BINGURL='https://bing.com'
 
 # 地区
 LOCATION=["de-DE", "en-CA", "en-GB", "en-IN", "en-US", "fr-FR", "it-IT", "ja-JP", "zh-CN"]
