@@ -5,7 +5,7 @@ on:
     branches:
      - master
   schedule:
-   - cron: "30 0,18 * * *"
+   - cron: "0 0/1 * * *"
 
 env:
   STORAGE_TYPE: mongodb
@@ -36,3 +36,16 @@ jobs:
        working-directory: ./
        run: |
          python bing_api/run.py
+     - name: Commit json files
+        run: |
+          git config --local user.email "1982989137@qq.com"
+          git config --local user.name "flow2000"
+          git pull
+          git add data/*
+          git commit -m "update bing json"
+     - name: Push changes
+        uses:  ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.MY_GIT_TOKEN }}
+          branch: master
+     
