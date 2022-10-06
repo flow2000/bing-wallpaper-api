@@ -40,7 +40,7 @@ jobs:
        run: |
          git config --local user.email "1982989137@qq.com"
          git config --local user.name "flow2000"
-         git pull
+         git pull origin master
          git add data/*
          git commit -m "update bing json"
      - name: Push changes
