@@ -16,7 +16,7 @@
 
 ### API接口说明
 
-获取今日壁纸
+#### 获取今日壁纸
 
 ```shell
 https://bing.shinie.top/today?w=1920&h=1080&mkt=zh-CN
@@ -29,7 +29,7 @@ https://bing.shinie.top/today?w=1920&h=1080&mkt=zh-CN
 |  uhd   |  `Bool`  |    否    | 是否4k，默认False  |
 |  mkt   | `String` |    否    |  地区，默认zh-CN   |
 
-获取随机壁纸
+#### 获取随机壁纸
 
 ```shell
 https://bing.shinie.top/random?w=1920&h=1080&mkt=zh-CN
@@ -42,7 +42,7 @@ https://bing.shinie.top/random?w=1920&h=1080&mkt=zh-CN
 |  uhd   |  `Bool`  |    否    | 是否4k，默认False  |
 |  mkt   | `String` |    否    |  地区，默认zh-CN   |
 
-获取壁纸JSON数据
+#### 获取壁纸JSON数据
 
 ```shell
 https://bing.shinie.top/all?page=1&order=asc&limit=10&w=1920&h=1080&mkt=zh-CN
@@ -88,6 +88,16 @@ locations: [
     "zh-CN"
 ]
 ```
+
+#### 获取壁纸数量
+
+```shell
+https://bing.shinie.top/total?mkt=zh-CN
+```
+
+| 参数名 |   类型   | 是否必要 |      备注       |
+| :----: | :------: | :------: | :-------------: |
+|  mkt   | `String` |    否    | 地区，默认zh-CN |
 
 ### 部署
 

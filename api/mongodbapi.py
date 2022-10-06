@@ -36,6 +36,9 @@ def query_all(page,limit,order,w,h,uhd,mkt):
         data.append(item)
     return BingResponse.success(data=data)
 
+def query_total_num(mkt):
+    return get_count(mkt)
+
 def latest_one(w,h,uhd,mkt):
     url=""
     for item in settings.LOCATION:

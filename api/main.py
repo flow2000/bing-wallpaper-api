@@ -122,5 +122,15 @@ async def all(page: int = 1, limit: int = 10, order: str="desc", w: int = 1920, 
         return BingResponse.error('请求参数错误')
     return query_all(page,limit,order,w,h,uhd,mkt)
 
+@app.get("/total",tags=["API"], summary="返回数据总数")
+async def total(mkt: str = "zh-CN"):
+    '''
+    请求字段说明：
+    - mkt:地区，默认zh-CN。目前支持的地区码：zh-CN, de-DE, en-CA, en-GB, en-IN, en-US, fr-FR, it-IT, ja-JP
+    '''
+    if settings.LOCATION.count(mkt)==0:
+        return BingResponse.error('请求参数错误')
+    return query_total_num(mkt)
+
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8888)
