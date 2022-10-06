@@ -37,7 +37,7 @@ def query_all(page,limit,order,w,h,uhd,mkt):
     return BingResponse.success(data=data)
 
 def query_total_num(mkt):
-    return get_count(mkt)
+    return BingResponse.success(data=get_count(mkt))
 
 def latest_one(w,h,uhd,mkt):
     url=""
