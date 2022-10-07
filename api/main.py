@@ -19,8 +19,8 @@ init(autoreset=True)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
-from bing_api import settings 
-from bing_api.utils import util
+from bing_wallpaper_api import settings 
+from bing_wallpaper_api.utils import util
 from api import BingResponse
 from api.mongodbapi import *
 
@@ -51,8 +51,8 @@ async def index():
     try:
         async with aiohttp.ClientSession() as session:
             version_links=[
-                "https://blog.panghai.top/code/txt/version/bing-api.txt",
-                "https://static.panghai.top/txt/version/bing-api.txt",
+                "https://blog.panghai.top/code/txt/version/bing-wallpaper-api.txt",
+                "https://static.panghai.top/txt/version/bing-wallpaper-api.txt",
             ]
             tasks = [asyncio.create_task(fetch(session, link)) for link in version_links]
             done, pending = await asyncio.wait(tasks)
@@ -67,7 +67,7 @@ async def index():
         data={
             "current_version":settings.VERSION
         }
-        return BingResponse.error(msg="BingAPI 获取不到最新版本，但仍可使用，请联系：https://github.com/flow2000/bing-api",data=data)
+        return BingResponse.error(msg="BingAPI 获取不到最新版本，但仍可使用，请联系：https://github.com/flow2000/bing-wallpaper-api",data=data)
     data={
         "current_version":settings.VERSION,
         "latest_version":latest_version

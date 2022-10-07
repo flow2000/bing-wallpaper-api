@@ -25,7 +25,7 @@ jobs:
         python-version: 3.8
 
      - name: Install Requirements
-       working-directory: ./bing_api
+       working-directory: ./bing_wallpaper_api
        run: |
          pip install -r requirements.txt
  
@@ -35,7 +35,7 @@ jobs:
         MONGODB_URI: ${{ secrets.MONGODB_URI }}
        working-directory: ./
        run: |
-         python bing_api/run.py
+         python bing_wallpaper_api/run.py
          
      - name: Commit json Files
        run: |

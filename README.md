@@ -19,7 +19,7 @@
 #### 获取今日壁纸
 
 ```shell
-https://bing.shinie.top/today?w=1920&h=1080&mkt=zh-CN
+https://api.bing.shinie.top/today?w=1920&h=1080&mkt=zh-CN
 ```
 
 | 参数名 |   类型   | 是否必要 |        备注        |
@@ -32,7 +32,7 @@ https://bing.shinie.top/today?w=1920&h=1080&mkt=zh-CN
 #### 获取随机壁纸
 
 ```shell
-https://bing.shinie.top/random?w=1920&h=1080&mkt=zh-CN
+https://api.bing.shinie.top/random?w=1920&h=1080&mkt=zh-CN
 ```
 
 | 参数名 |   类型   | 是否必要 |        备注        |
@@ -45,7 +45,7 @@ https://bing.shinie.top/random?w=1920&h=1080&mkt=zh-CN
 #### 获取壁纸JSON数据
 
 ```shell
-https://bing.shinie.top/all?page=1&order=asc&limit=10&w=1920&h=1080&mkt=zh-CN
+https://api.bing.shinie.top/all?page=1&order=asc&limit=10&w=1920&h=1080&mkt=zh-CN
 ```
 
 | 参数名 |   类型   | 是否必要 |              备注               |
@@ -92,7 +92,7 @@ locations: [
 #### 获取壁纸数量
 
 ```shell
-https://bing.shinie.top/total?mkt=zh-CN
+https://api.bing.shinie.top/total?mkt=zh-CN
 ```
 
 | 参数名 |   类型   | 是否必要 |      备注       |
@@ -101,13 +101,13 @@ https://bing.shinie.top/total?mkt=zh-CN
 
 ### 部署
 
-1、在 [MongoDB](https://www.mongodb.com/cloud/atlas/register) 申请 MongoDB 帐号
+1、在 [MongoDB](https://www.mongodb.com/cloud/atlas/register) 申请 MongoDB 帐号，具体可查看我的博客教程：[如何申请一个永久免费的 Mongodb 数据库 - 详细版](https://blog.panghai.top/posts/b267/)
 
 2、在[Vercel](https://vercel.com/signup)申请 Vercel帐号
 
 3、创建数据库用户名和密码，在IPAccess List添加`0.0.0.0`（代表允许所有 IP 地址的连接），在 Clusters 页面点击 CONNECT，选择第二个：Connect your application，并记录数据库连接字符串，请将连接字符串中的 `user`修改为数据库用户，`<password>` 修改为数据库密码
 
-3、点击部署<a href="https://vercel.com/import/project?template=https://github.com/flow2000/bing-api/tree/master" target="_blank" rel="noopener noreferrer"><img src="https://vercel.com/button" alt="vercel deploy"></a>
+3、点击部署<a href="https://vercel.com/import/project?template=https://github.com/flow2000/bing-wallpaper-api/tree/master" target="_blank" rel="noopener noreferrer"><img src="https://vercel.com/button" alt="vercel deploy"></a>
 
 4、进入 Settings - Environment Variables，添加环境变量 `MONGODB_URI`，值为第 3 步的数据库连接字符串
 
