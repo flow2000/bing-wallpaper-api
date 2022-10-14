@@ -1,11 +1,28 @@
 {
-  "update_time": "2022-10-13 02:34:13",
-  "total": 169,
+  "update_time": "2022-10-14 02:45:34",
+  "total": 170,
   "language": "en-IN",
   "message": "ok",
   "status": true,
   "success": true,
   "data": [
+    {
+      "startdate": "20221013",
+      "fullstartdate": "202210131830",
+      "enddate": "20221014",
+      "url": "/th?id=OHR.BlueTigerButterflies_EN-IN0664966797_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+      "urlbase": "/th?id=OHR.BlueTigerButterflies_EN-IN0664966797",
+      "copyright": "Blue tiger butterflies on a tree in Bengaluru, India (© Amith Nag Photography/Getty Images)",
+      "copyrightlink": "https://www.bing.com/search?q=blue+tiger+butterfly&form=hpcapt&filters=HpDate%3a%2220221013_1830%22",
+      "title": "Don't just fly, darling. Soar!",
+      "quiz": "/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20221013_BlueTigerButterflies%22&FORM=HPQUIZ",
+      "wp": true,
+      "hsh": "d7fb0fd7d8e83d8cc813b9b4306a8b29",
+      "drk": 1,
+      "top": 1,
+      "bot": 1,
+      "hs": []
+    },
     {
       "startdate": "20221012",
       "fullstartdate": "202210121830",
