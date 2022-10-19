@@ -1,11 +1,28 @@
 {
-  "update_time": "2022-10-18 02:38:15",
-  "total": 174,
+  "update_time": "2022-10-19 02:35:11",
+  "total": 175,
   "language": "de-DE",
   "message": "ok",
   "status": true,
   "success": true,
   "data": [
+    {
+      "startdate": "20221018",
+      "fullstartdate": "202210182200",
+      "enddate": "20221019",
+      "url": "/th?id=OHR.WartburgCastle_DE-DE7442950218_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+      "urlbase": "/th?id=OHR.WartburgCastle_DE-DE7442950218",
+      "copyright": "Wartburg im Herbst, Thüringer Wald, Thüringen (© ezypix/Getty Images)",
+      "copyrightlink": "https://www.bing.com/search?q=Wartburg%2c+Festungsanlage&form=hpcapt&filters=HpDate%3a%2220221018_2200%22",
+      "title": "„Wart! Berg, du sollst mir eine Burg werden!“",
+      "quiz": "/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20221018_WartburgCastle%22&FORM=HPQUIZ",
+      "wp": true,
+      "hsh": "146e6f64397b73f0e01cbfd3e96d7dc2",
+      "drk": 1,
+      "top": 1,
+      "bot": 1,
+      "hs": []
+    },
     {
       "startdate": "20221017",
       "fullstartdate": "202210172200",
