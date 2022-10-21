@@ -1,11 +1,28 @@
 {
-  "update_time": "2022-10-20 02:36:42",
-  "total": 176,
+  "update_time": "2022-10-21 02:07:18",
+  "total": 177,
   "language": "it-IT",
   "message": "ok",
   "status": true,
   "success": true,
   "data": [
+    {
+      "startdate": "20221020",
+      "fullstartdate": "202210202200",
+      "enddate": "20221021",
+      "url": "/th?id=OHR.GeorgiaCypress_IT-IT6973135331_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+      "urlbase": "/th?id=OHR.GeorgiaCypress_IT-IT6973135331",
+      "copyright": "Cipressi in autunno, Georgia, USA (© Chris Moore/Tandem Stills + Motion)",
+      "copyrightlink": "https://www.bing.com/search?q=cipresso+calvo&form=hpcapt",
+      "title": "Gli alberi che amano vivere nelle paludi",
+      "quiz": "/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20221020_GeorgiaCypress%22&FORM=HPQUIZ",
+      "wp": true,
+      "hsh": "7c2284967d699d6dbb9d4e0401d551a5",
+      "drk": 1,
+      "top": 1,
+      "bot": 1,
+      "hs": []
+    },
     {
       "startdate": "20221019",
       "fullstartdate": "202210192200",
