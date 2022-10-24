@@ -1,11 +1,28 @@
 {
-  "update_time": "2022-10-23 02:36:11",
-  "total": 179,
+  "update_time": "2022-10-24 02:49:14",
+  "total": 180,
   "language": "en-IN",
   "message": "ok",
   "status": true,
   "success": true,
   "data": [
+    {
+      "startdate": "20221023",
+      "fullstartdate": "202210231830",
+      "enddate": "20221024",
+      "url": "/th?id=OHR.DiwaliOilLamps_EN-IN0701838177_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+      "urlbase": "/th?id=OHR.DiwaliOilLamps_EN-IN0701838177",
+      "copyright": "Oil lamps on the occasion of Diwali (© Subodh Sathe/Alamy Stock Photo)",
+      "copyrightlink": "https://www.bing.com/search?q=diwali&form=hpcapt&filters=HpDate%3a%2220221023_1830%22",
+      "title": "Lighting the world",
+      "quiz": "/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20221023_DiwaliOilLamps%22&FORM=HPQUIZ",
+      "wp": true,
+      "hsh": "4795e8385045169366ff7fa953aa3dd7",
+      "drk": 1,
+      "top": 1,
+      "bot": 1,
+      "hs": []
+    },
     {
       "startdate": "20221022",
       "fullstartdate": "202210221830",
