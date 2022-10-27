@@ -1,11 +1,28 @@
 {
-  "update_time": "2022-10-26 02:20:01",
-  "total": 182,
+  "update_time": "2022-10-27 02:12:29",
+  "total": 183,
   "language": "en-IN",
   "message": "ok",
   "status": true,
   "success": true,
   "data": [
+    {
+      "startdate": "20221026",
+      "fullstartdate": "202210261830",
+      "enddate": "20221027",
+      "url": "/th?id=OHR.BridgeofSighs_EN-IN1934990115_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+      "urlbase": "/th?id=OHR.BridgeofSighs_EN-IN1934990115",
+      "copyright": "Bridge of Sighs in Venice, Italy (© Doug Pearson/Alamy)",
+      "copyrightlink": "https://www.bing.com/search?q=bridge+of+sighs+history&form=hpcapt&filters=HpDate%3a%2220221026_1830%22",
+      "title": "A kiss and a sigh",
+      "quiz": "/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20221026_BridgeofSighs%22&FORM=HPQUIZ",
+      "wp": true,
+      "hsh": "30044aad65077d0b7c1839b462a251c1",
+      "drk": 1,
+      "top": 1,
+      "bot": 1,
+      "hs": []
+    },
     {
       "startdate": "20221025",
       "fullstartdate": "202210251830",
