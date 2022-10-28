@@ -1,11 +1,28 @@
 {
-  "update_time": "2022-10-27 02:12:30",
-  "total": 183,
+  "update_time": "2022-10-28 02:26:03",
+  "total": 184,
   "language": "it-IT",
   "message": "ok",
   "status": true,
   "success": true,
   "data": [
+    {
+      "startdate": "20221027",
+      "fullstartdate": "202210272200",
+      "enddate": "20221028",
+      "url": "/th?id=OHR.FrankensteinFriday_IT-IT8308300166_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+      "urlbase": "/th?id=OHR.FrankensteinFriday_IT-IT8308300166",
+      "copyright": "Cielo tempestoso sul Lago di Ginevra a Losanna, Svizzera (© Suradech Singhanat)",
+      "copyrightlink": "https://www.bing.com/search?q=Lago+Lemano&form=hpcapt",
+      "title": "Era una notte buia e tempestosa...",
+      "quiz": "/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20221027_FrankensteinFriday%22&FORM=HPQUIZ",
+      "wp": true,
+      "hsh": "f91f7aee037fa369f6b73f235058ca94",
+      "drk": 1,
+      "top": 1,
+      "bot": 1,
+      "hs": []
+    },
     {
       "startdate": "20221026",
       "fullstartdate": "202210262200",
