@@ -1,11 +1,28 @@
 {
-  "update_time": "2022-10-27 02:12:29",
-  "total": 183,
+  "update_time": "2022-10-28 02:26:03",
+  "total": 184,
   "language": "de-DE",
   "message": "ok",
   "status": true,
   "success": true,
   "data": [
+    {
+      "startdate": "20221027",
+      "fullstartdate": "202210272200",
+      "enddate": "20221028",
+      "url": "/th?id=OHR.FrankensteinFriday_DE-DE0293571099_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+      "urlbase": "/th?id=OHR.FrankensteinFriday_DE-DE0293571099",
+      "copyright": "Aufziehendes Gewitter über dem Genfersee bei Lausanne, Schweiz (© Suradech Singhanat)",
+      "copyrightlink": "https://www.bing.com/search?q=Genfersee+Lausanne+Schweiz&form=hpcapt&filters=HpDate%3a%2220221027_2200%22",
+      "title": "In einer dunklen und stürmischen Nacht …",
+      "quiz": "/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20221027_FrankensteinFriday%22&FORM=HPQUIZ",
+      "wp": true,
+      "hsh": "3295632d11b88ac35f1cb3c1b7a93dc4",
+      "drk": 1,
+      "top": 1,
+      "bot": 1,
+      "hs": []
+    },
     {
       "startdate": "20221026",
       "fullstartdate": "202210262200",
