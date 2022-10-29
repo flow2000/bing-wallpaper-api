@@ -1,11 +1,28 @@
 {
-  "update_time": "2022-10-28 02:26:03",
-  "total": 184,
+  "update_time": "2022-10-29 02:06:47",
+  "total": 185,
   "language": "en-IN",
   "message": "ok",
   "status": true,
   "success": true,
   "data": [
+    {
+      "startdate": "20221028",
+      "fullstartdate": "202210281830",
+      "enddate": "20221029",
+      "url": "/th?id=OHR.SeaAngel_EN-IN2839358434_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+      "urlbase": "/th?id=OHR.SeaAngel_EN-IN2839358434",
+      "copyright": "Sea angel (© Alexander Semenov Images/Shutterstock)",
+      "copyrightlink": "https://www.bing.com/search?q=sea+angel+sea+slug&form=hpcapt&filters=HpDate%3a%2220221028_1830%22",
+      "title": "Angel of the sea",
+      "quiz": "/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20221028_SeaAngel%22&FORM=HPQUIZ",
+      "wp": true,
+      "hsh": "74cf54b9a01995610fbe9fa59f7d280b",
+      "drk": 1,
+      "top": 1,
+      "bot": 1,
+      "hs": []
+    },
     {
       "startdate": "20221027",
       "fullstartdate": "202210271830",
