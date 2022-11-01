@@ -1,11 +1,28 @@
 {
-  "update_time": "2022-10-31 02:28:59",
-  "total": 187,
+  "update_time": "2022-11-01 01:03:08",
+  "total": 188,
   "language": "en-IN",
   "message": "ok",
   "status": true,
   "success": true,
   "data": [
+    {
+      "startdate": "20221031",
+      "fullstartdate": "202210311830",
+      "enddate": "20221101",
+      "url": "/th?id=OHR.Calacas_EN-IN6289630026_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+      "urlbase": "/th?id=OHR.Calacas_EN-IN6289630026",
+      "copyright": "Skeletons (calacas) dressed up for Día de los Muertos celebrations in Mexico (© Amelia Fuentes Marin/Getty Images)",
+      "copyrightlink": "https://www.bing.com/search?q=calacas+day+of+the+dead&FORM=hpcapt&filters=HpDate%3a%2220221031_1830%22",
+      "title": "What are they celebrating?",
+      "quiz": "/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20221031_Calacas%22&FORM=HPQUIZ",
+      "wp": true,
+      "hsh": "212524dea1d7c532057304c784a9b7d1",
+      "drk": 1,
+      "top": 1,
+      "bot": 1,
+      "hs": []
+    },
     {
       "startdate": "20221030",
       "fullstartdate": "202210301830",
