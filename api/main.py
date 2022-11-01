@@ -19,9 +19,10 @@ init(autoreset=True)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
-from utils import mogodb_utils
-
-# os.environ["MONGODB_URI"]="mongodb://127.0.0.1:27017/"
+from bing_wallpaper_api import settings 
+from bing_wallpaper_api.utils import util
+from api import BingResponse
+from api.mongodbapi import *
 
 app = FastAPI()
 
@@ -37,14 +38,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-VERSION="2.0.1"
-
-
-BINGAPI='https://cn.bing.com/HPImageArchive.aspx?n=1&format=js&idx=0'
-BINGURL='https://cn.bing.com'
-W=[1920,1366,1280,1024,800,768,720,640,480,400,320,240]
-H=[1200,1080,768,600,480,1280,800,240,320]
-
 @app.get("/",tags=["API"], summary="返回部署成功信息")
 async def index():
     '''
@@ -58,8 +51,8 @@ async def index():
     try:
         async with aiohttp.ClientSession() as session:
             version_links=[
-                "https://blog.panghai.top/code/txt/version/bing-api.txt",
-                "https://static.panghai.top/txt/version/bing-api.txt",
+                "https://blog.panghai.top/code/txt/version/bing-wallpaper-api.txt",
+                "https://static.panghai.top/txt/version/bing-wallpaper-api.txt",
             ]
             tasks = [asyncio.create_task(fetch(session, link)) for link in version_links]
             done, pending = await asyncio.wait(tasks)
@@ -71,8 +64,15 @@ async def index():
                 raise Exception("无法请求文件")
     except Exception as e:
         print(e)
-        return {"code": "200","msg":"BingAPI 获取不到最新版本（仍可使用），请联系：https://github.com/flow2000/bing-api","current_version":VERSION}
-    return {"code": "200","msg":"BingAPI 部署成功 ","current_version":VERSION,"latest_version": latest_version}
+        data={
+            "current_version":settings.VERSION
+        }
+        return BingResponse.error(msg="BingAPI 获取不到最新版本，但仍可使用，请联系：https://github.com/flow2000/bing-wallpaper-api",data=data)
+    data={
+        "current_version":settings.VERSION,
+        "latest_version":latest_version
+    }
+    return BingResponse.success(msg="BingAPI 部署成功，详情可查看文档：https://www.apifox.cn/apidoc/shared-961673e6-161d-4129-88b6-e7b0a3b86cf1",data=data)
 
 async def fetch(session, url):
     async with session.get(url, verify_ssl=False) as response:
@@ -86,78 +86,51 @@ async def favicon():
     return StreamingResponse(open('favicon.ico', mode="rb"), media_type="image/jpg")
 
 @app.get("/today",tags=["API"], summary="返回今日壁纸")
-async def today(w: str = "1920", h: str = "1080", uhd: bool = False):
+async def latest(w: str = "1920", h: str = "1080", uhd: bool = False, mkt: str = "zh-CN"):
     '''
     请求字段说明：
     - w:图片宽度,默认1920
     - h:图片长度,默认1080
-    - uhd:是否4k,默认False,为True时请求参数w和h无效
-    - 目前支持的分辨率:1920x1200, 1920x1080, 1366x768, 1280x768, 1024x768, 800x600, 800x480, 768x1280, 720x1280, 640x480, 480x800, 400x240, 320x240, 240x320
+    - uhd:是否4k,默认False,为True时请求参数w和h无效。目前支持的分辨率:1920x1200, 1920x1080, 1366x768, 1280x768, 1024x768, 800x600, 800x480, 768x1280, 720x1280, 640x480, 480x800, 400x240, 320x240, 240x320
+    - mkt:地区，默认zh-CN。目前支持的地区码：zh-CN, de-DE, en-CA, en-GB, en-IN, en-US, fr-FR, it-IT, ja-JP
     '''
-    data = json.loads(requests.get(BINGAPI, headers={
-        "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"
-    }).text)
-    query_data=w+'x'+h
-    if uhd:
-        query_data='UHD'  
-    return RedirectResponse(BINGURL+data['images'][0]['url'].replace("&rf=LaDigue_1920x1080.jpg&pid=hp","").replace("1920x1080",query_data))
+    return latest_one(w,h,uhd,mkt)
 
 @app.get("/random",tags=["API"], summary="返回随机壁纸")
-async def random_bing(w: str = "1920", h: str = "1080", uhd: bool = False):
+async def random(w: str = "1920", h: str = "1080", uhd: bool = False, mkt: str = "zh-CN"):
     '''
     请求字段说明：
     - w:图片宽度,默认1920
     - h:图片长度,默认1080
-    - uhd:是否4k,默认False,为True时请求参数w和h无效
-    - 目前支持的分辨率:1920x1200, 1920x1080, 1366x768, 1280x768, 1024x768, 800x600, 800x480, 768x1280, 720x1280, 640x480, 480x800, 400x240, 320x240, 240x320
+    - uhd:是否4k,默认False,为True时请求参数w和h无效。目前支持的分辨率:1920x1200, 1920x1080, 1366x768, 1280x768, 1024x768, 800x600, 800x480, 768x1280, 720x1280, 640x480, 480x800, 400x240, 320x240, 240x320
+    - mkt:地区，默认zh-CN。目前支持的地区码：zh-CN, de-DE, en-CA, en-GB, en-IN, en-US, fr-FR, it-IT, ja-JP
     '''
-    url = mogodb_utils.query_random_one()['url']
-    query_data=w+'x'+h
-    if uhd:
-        query_data='UHD'
-    return RedirectResponse(url.replace("1920x1080",query_data))
+    return random_one(w,h,uhd,mkt)
 
 @app.get("/all",tags=["API"], summary="返回分页数据")
-async def all(page: int = 1, limit: int = 10, order: str="desc", w: int = 1920, h: int = 1080, uhd: bool = False):
+async def all(page: int = 1, limit: int = 10, order: str="desc", w: int = 1920, h: int = 1080, uhd: bool = False, mkt: str = "zh-CN"):
     '''
     请求字段说明：
     - page:页码,默认1
     - limit:页数,默认10
     - w:图片宽度,默认1920
     - h:图片长度,默认1080
-    - uhd:是否4k,默认False,为True时请求参数w和h无效
-    - 目前支持的分辨率:1920x1200, 1920x1080, 1366x768, 1280x768, 1024x768, 800x600, 800x480, 768x1280, 720x1280, 640x480, 480x800, 400x240, 320x240, 240x320
+    - uhd:是否4k,默认False,为True时请求参数w和h无效。目前支持的分辨率:1920x1200, 1920x1080, 1366x768, 1280x768, 1024x768, 800x600, 800x480, 768x1280, 720x1280, 640x480, 480x800, 400x240, 320x240, 240x320
+    - mkt:地区，默认zh-CN。目前支持的地区码：zh-CN, de-DE, en-CA, en-GB, en-IN, en-US, fr-FR, it-IT, ja-JP
     '''
-    if order == "desc":
-        order = -1
-    elif order == "asc":
-        order = 1
-    else:
-        return {'code':500,'msg':'请求参数错误'}
-    if page<=0 or limit<=0 or limit >100:
-        return {'code':500,'msg':'请求参数错误'}
-    query_params={
-        "page":page,
-        "limit":limit,
-        "order":order
-    }
-    link_str=""
-    if uhd==False:
-        if W.count(w)==0 or H.count(h)==0:
-            return {'code':500,'msg':'请求参数错误'}
-        link_str=str(w)+'x'+str(h)
-    else:
-        link_str="UHD"
-    query_result=mogodb_utils.query_data(query_params)
-    data=[]
-    for item in query_result:
-        item['url']=item['url'].replace("1920x1080",link_str)
-        data.append(item)
-    res_json = {}
-    res_json['code']=200
-    res_json['msg']='操作成功'
-    res_json['data']=data
-    return res_json
+    if util.check_params(page,limit,order,w,h,uhd,mkt)==False:
+        return BingResponse.error('请求参数错误')
+    return query_all(page,limit,order,w,h,uhd,mkt)
+
+@app.get("/total",tags=["API"], summary="返回数据总数")
+async def total(mkt: str = "zh-CN"):
+    '''
+    请求字段说明：
+    - mkt:地区，默认zh-CN。目前支持的地区码：zh-CN, de-DE, en-CA, en-GB, en-IN, en-US, fr-FR, it-IT, ja-JP
+    '''
+    if settings.LOCATION.count(mkt)==0:
+        return BingResponse.error('请求参数错误')
+    return query_total_num(mkt)
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8888)
