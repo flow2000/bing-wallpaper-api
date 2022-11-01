@@ -40,16 +40,24 @@ def query_total_num(mkt):
     return BingResponse.success(data=get_count(mkt))
 
 def latest_one(w,h,uhd,mkt):
-    url=""
-    if settings.LOCATION.count(mkt)>0:
-        url=settings.BINGAPI+"&mkt="+mkt
+    if settings.DEPLOY_TYPE=='docker':
+        if settings.LOCATION.count(mkt)==0:
+            mkt=settings.DEFAULT_MKT
+        link_str=w+'x'+h
+        if uhd:
+            link_str='UHD'
+        return RedirectResponse(query_latest_one(mkt)['url'].replace("&rf=LaDigue_1920x1080.jpg&pid=hp","").replace("1920x1080",link_str))
     else:
-        url=settings.BINGAPI+"&mkt="+settings.DEFAULT_MKT
-    data = json.loads(requests.get(url).text)
-    link_str=w+'x'+h
-    if uhd:
-        link_str='UHD'
-    return RedirectResponse(settings.BINGURL+data['images'][0]['url'].replace("&rf=LaDigue_1920x1080.jpg&pid=hp","").replace("1920x1080",link_str))
+        url=""
+        if settings.LOCATION.count(mkt)>0:
+            url=settings.BINGAPI+"&mkt="+mkt
+        else:
+            url=settings.BINGAPI+"&mkt="+settings.DEFAULT_MKT
+        data = json.loads(requests.get(url).text)
+        link_str=w+'x'+h
+        if uhd:
+            link_str='UHD'
+        return RedirectResponse(settings.BINGURL+data['images'][0]['url'].replace("&rf=LaDigue_1920x1080.jpg&pid=hp","").replace("1920x1080",link_str))
 
 def random_one(w,h,uhd,mkt):
     url=""

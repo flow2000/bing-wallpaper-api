@@ -101,6 +101,8 @@ https://api.bimg.cc/total?mkt=zh-CN
 
 ### 部署
 
+#### vercel部署
+
 1、在 [MongoDB](https://www.mongodb.com/cloud/atlas/register) 申请 MongoDB 帐号，具体可查看我的博客教程：[如何申请一个永久免费的 Mongodb 数据库 - 详细版](https://blog.panghai.top/posts/b267/)
 
 2、在[Vercel](https://vercel.com/signup)申请 Vercel帐号
@@ -112,6 +114,14 @@ https://api.bimg.cc/total?mkt=zh-CN
 4、进入 Settings - Environment Variables，添加环境变量 `MONGODB_URI`，值为第 3 步的数据库连接字符串
 
 5、进入 Overview，点击 Domains 下方的链接，添加一个子域名，并在域名解析添加一个`CNAME`解析：`cname.vercel-dns.com.`，等待刷新完成即可获得一个`https`的接口
+
+#### docker部署
+
+```shell
+docker run -itd --name bimg --restart=always --env MONGODB_URI= -p 9127:8888 flow2000/bimg
+```
+
+`MONGODB_URI`：存储方式为mongodb时的环境变量
 
 ### 未来计划
 
