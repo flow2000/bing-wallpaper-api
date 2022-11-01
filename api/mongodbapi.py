@@ -41,11 +41,9 @@ def query_total_num(mkt):
 
 def latest_one(w,h,uhd,mkt):
     url=""
-    for item in settings.LOCATION:
-        if item==mkt:
-            url=settings.BINGAPI+"&mkt="+mkt
-            break
-    if url=="":
+    if settings.LOCATION.count(mkt)>0:
+        url=settings.BINGAPI+"&mkt="+mkt
+    else:
         url=settings.BINGAPI+"&mkt="+settings.DEFAULT_MKT
     data = json.loads(requests.get(url).text)
     link_str=w+'x'+h
@@ -55,11 +53,9 @@ def latest_one(w,h,uhd,mkt):
 
 def random_one(w,h,uhd,mkt):
     url=""
-    for item in settings.LOCATION:
-        if item==mkt:
-            url=query_random_one(mkt)['url']
-            break
-    if url=="":
+    if settings.LOCATION.count(mkt)>0:
+        url=query_random_one(mkt)['url']
+    else:
         url=query_random_one("zh-CN")['url']
     link_str=w+'x'+h
     if uhd:
