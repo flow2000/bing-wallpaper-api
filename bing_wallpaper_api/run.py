@@ -3,6 +3,7 @@
 import sys
 import os
 import time
+import datetime
 import json
 import requests
 from pymongo import MongoClient
@@ -31,7 +32,7 @@ def add_data_to_database():
         count = get_count(mkt)
         url = settings.BINGAPI+"&mkt="+mkt
         json_data=util.get_data(count,url)
-        if query_latest_one(mkt)['datetime']!=json_data['datetime']:
+        if cal_date_diff(query_latest_one(mkt)['datetime'],json_data['datetime'])>=1:
             insert_one(mkt,json_data)
             first_data = query_first_one(mkt)
             latest_data = query_latest_one(mkt)
@@ -51,7 +52,7 @@ def add_data_to_json():
         url = settings.BINGAPI+"&mkt="+mkt
         json_data=util.get_data(len(bing_lists),url)
         NOW_DATE=json_data['datetime']
-        if datetime!=NOW_DATE:
+        if cal_date_diff(datetime,NOW_DATE):
             print(mkt+":已添加"+NOW_DATE+"json数据")
             json_data=json.loads(requests.get(url).text)['images'][0]
             bing_lists.insert(0, json_data)
@@ -69,6 +70,11 @@ def read_json(run_type):
 def write_json(run_type,data):
     with open(f'data/{run_type}_all.json', 'w', encoding="utf-8") as f:
         json.dump(data,f, indent=2, ensure_ascii=False)
+
+def cal_date_diff(d1,d2):
+    date1 = datetime.datetime.strptime(d1, "%Y-%m-%d").date()  
+    date2 = datetime.datetime.strptime(d2, "%Y-%m-%d").date()  
+    return (date2 - date1).days
                 
 if __name__=='__main__':
     init_data_to_database()
