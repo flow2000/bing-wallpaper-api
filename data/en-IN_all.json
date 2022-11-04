@@ -1,11 +1,28 @@
 {
-  "update_time": "2022-11-03 01:21:54",
-  "total": 190,
+  "update_time": "2022-11-04 01:27:51",
+  "total": 191,
   "language": "en-IN",
   "message": "ok",
   "status": true,
   "success": true,
   "data": [
+    {
+      "startdate": "20221103",
+      "fullstartdate": "202211031830",
+      "enddate": "20221104",
+      "url": "/th?id=OHR.Deities_EN-IN6823352594_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+      "urlbase": "/th?id=OHR.Deities_EN-IN6823352594",
+      "copyright": "Depiction of deities from the Tomb of Tutankhamun at the Egyptian Museum, Cairo, Egypt (© Stefan Lippmann/Universal Images Group via Getty Images)",
+      "copyrightlink": "https://www.bing.com/search?q=discovery+of+the+tomb+of+tutankhamun&form=hpcapt&filters=HpDate%3a%2220221103_1830%22",
+      "title": "Tomb of the Golden Pharaoh",
+      "quiz": "/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20221103_Deities%22&FORM=HPQUIZ",
+      "wp": false,
+      "hsh": "1ab5dd7c0bf64d6ec471de0fdc464551",
+      "drk": 1,
+      "top": 1,
+      "bot": 1,
+      "hs": []
+    },
     {
       "startdate": "20221102",
       "fullstartdate": "202211021830",
