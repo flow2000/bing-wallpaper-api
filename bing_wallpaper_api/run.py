@@ -52,7 +52,8 @@ def add_data_to_json():
         url = settings.BINGAPI+"&mkt="+mkt
         json_data=util.get_data(len(bing_lists),url)
         NOW_DATE=json_data['datetime']
-        if cal_date_diff(datetime,NOW_DATE):
+        if cal_date_diff(datetime,NOW_DATE)>=1:
+            print(mkt+"：最近提交的日期为"+NOW_DATE+"，现在时间："+time.strftime('%Y-%m-%d %H:%M:%S', timearray))
             print(mkt+":已添加"+NOW_DATE+"json数据")
             json_data=json.loads(requests.get(url).text)['images'][0]
             bing_lists.insert(0, json_data)
