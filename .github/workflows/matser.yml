@@ -5,7 +5,10 @@ on:
     branches:
      - master
   schedule:
-   - cron: "0 0/1 * * *"
+   - cron: '30 0 * * *'
+  repository_dispatch:
+    types:
+      - webhook
 
 env:
   STORAGE_TYPE: mongodb
@@ -22,6 +25,7 @@ jobs:
      - name: Set up Python
        uses: actions/setup-python@v1
        with:
+        cache: 'pip'
         python-version: 3.8
 
      - name: Install Requirements
