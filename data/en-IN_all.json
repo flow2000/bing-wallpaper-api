@@ -1,11 +1,28 @@
 {
-  "update_time": "2022-11-12 02:30:11",
-  "total": 199,
+  "update_time": "2022-11-13 02:31:48",
+  "total": 200,
   "language": "en-IN",
   "message": "ok",
   "status": true,
   "success": true,
   "data": [
+    {
+      "startdate": "20221112",
+      "fullstartdate": "202211121830",
+      "enddate": "20221113",
+      "url": "/th?id=OHR.FosterCoveredBridge_EN-IN9279266132_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+      "urlbase": "/th?id=OHR.FosterCoveredBridge_EN-IN9279266132",
+      "copyright": "Foster Covered Bridge in Cabot, Vermont (© Alan Majchrowicz/Getty Images)",
+      "copyrightlink": "https://www.bing.com/search?q=Covered+bridge&form=hpcapt&filters=HpDate%3a%2220221112_1830%22",
+      "title": "A modern recreation",
+      "quiz": "/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20221112_FosterCoveredBridge%22&FORM=HPQUIZ",
+      "wp": true,
+      "hsh": "177a575051a011ee118a5249201c3476",
+      "drk": 1,
+      "top": 1,
+      "bot": 1,
+      "hs": []
+    },
     {
       "startdate": "20221111",
       "fullstartdate": "202211111830",
