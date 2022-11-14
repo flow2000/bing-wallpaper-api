@@ -1,11 +1,28 @@
 {
-  "update_time": "2022-11-13 02:31:48",
-  "total": 200,
+  "update_time": "2022-11-14 00:31:54",
+  "total": 201,
   "language": "de-DE",
   "message": "ok",
   "status": true,
   "success": true,
   "data": [
+    {
+      "startdate": "20221113",
+      "fullstartdate": "202211132300",
+      "enddate": "20221114",
+      "url": "/th?id=OHR.IsarwinkelSylvenstein_DE-DE5855301818_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+      "urlbase": "/th?id=OHR.IsarwinkelSylvenstein_DE-DE5855301818",
+      "copyright": "Luftaufnahme der Isar an der Einmündung in den Sylvensteinspeicher, Isarwinkel, Lenggries, Bayern (© Martin Siepmann/Shutterstock)",
+      "copyrightlink": "https://www.bing.com/search?q=Isarwinkel+Sylvensteinsee&form=hpcapt&filters=HpDate%3a%2220221113_2300%22",
+      "title": "Glasklares Wasser mündet in einen Stausee",
+      "quiz": "/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20221113_IsarwinkelSylvenstein%22&FORM=HPQUIZ",
+      "wp": true,
+      "hsh": "f78e9b81235a582056771090112e0eea",
+      "drk": 1,
+      "top": 1,
+      "bot": 1,
+      "hs": []
+    },
     {
       "startdate": "20221112",
       "fullstartdate": "202211122300",
