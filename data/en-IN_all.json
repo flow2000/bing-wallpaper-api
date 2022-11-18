@@ -1,11 +1,28 @@
 {
-  "update_time": "2022-11-17 02:24:52",
-  "total": 204,
+  "update_time": "2022-11-18 01:42:29",
+  "total": 205,
   "language": "en-IN",
   "message": "ok",
   "status": true,
   "success": true,
   "data": [
+    {
+      "startdate": "20221117",
+      "fullstartdate": "202211171830",
+      "enddate": "20221118",
+      "url": "/th?id=OHR.IslamicArt_EN-IN9111194134_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+      "urlbase": "/th?id=OHR.IslamicArt_EN-IN9111194134",
+      "copyright": "The gates of the Royal Palace (Dar El Makhzen) in Fez, Morocco (© Adam Smigielski/Getty Images)",
+      "copyrightlink": "https://www.bing.com/search?q=islamic+architecture+history&form=hpcapt&filters=HpDate%3a%2220221117_1830%22",
+      "title": "Keyholes to the kingdom",
+      "quiz": "/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20221117_IslamicArt%22&FORM=HPQUIZ",
+      "wp": true,
+      "hsh": "30c340f8e247b270cd9d070ef202d2c0",
+      "drk": 1,
+      "top": 1,
+      "bot": 1,
+      "hs": []
+    },
     {
       "startdate": "20221116",
       "fullstartdate": "202211161830",
