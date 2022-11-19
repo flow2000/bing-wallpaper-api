@@ -1,11 +1,28 @@
 {
-  "update_time": "2022-11-18 01:42:28",
-  "total": 205,
+  "update_time": "2022-11-19 02:17:38",
+  "total": 206,
   "language": "de-DE",
   "message": "ok",
   "status": true,
   "success": true,
   "data": [
+    {
+      "startdate": "20221118",
+      "fullstartdate": "202211182300",
+      "enddate": "20221119",
+      "url": "/th?id=OHR.ZNPVR_DE-DE4002735203_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+      "urlbase": "/th?id=OHR.ZNPVR_DE-DE4002735203",
+      "copyright": "Virgin River im Zion-Nationalpark, Utah, USA (© Jonathan Ross/Getty)",
+      "copyrightlink": "https://www.bing.com/search?q=Zion-Nationalpark+Schutzgebiet&form=hpcapt&filters=HpDate%3a%2220221118_2300%22",
+      "title": "Der Zion-Nationalpark wird 103!",
+      "quiz": "/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20221118_ZNPVR%22&FORM=HPQUIZ",
+      "wp": true,
+      "hsh": "007d29e49c5656deda0c53d91d769327",
+      "drk": 1,
+      "top": 1,
+      "bot": 1,
+      "hs": []
+    },
     {
       "startdate": "20221117",
       "fullstartdate": "202211172300",
