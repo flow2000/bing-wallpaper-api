@@ -1,11 +1,28 @@
 {
-  "update_time": "2022-11-18 01:42:29",
-  "total": 205,
+  "update_time": "2022-11-19 02:17:40",
+  "total": 206,
   "language": "it-IT",
   "message": "ok",
   "status": true,
   "success": true,
   "data": [
+    {
+      "startdate": "20221118",
+      "fullstartdate": "202211182300",
+      "enddate": "20221119",
+      "url": "/th?id=OHR.ZNPVR_IT-IT5034248506_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+      "urlbase": "/th?id=OHR.ZNPVR_IT-IT5034248506",
+      "copyright": "Virgin River nel Parco Nazionale di Zion, Utah, USA (© Jonathan Ross/Getty)",
+      "copyrightlink": "https://www.bing.com/search?q=parco+nazionale+di+zion&FORM=hpcapt",
+      "title": "I 103 anni del Parco Nazionale di Zion",
+      "quiz": "/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20221118_ZNPVR%22&FORM=HPQUIZ",
+      "wp": true,
+      "hsh": "704fbe88147d919a2ccd7d88a606d070",
+      "drk": 1,
+      "top": 1,
+      "bot": 1,
+      "hs": []
+    },
     {
       "startdate": "20221117",
       "fullstartdate": "202211172300",
