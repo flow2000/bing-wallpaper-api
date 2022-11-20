@@ -1,11 +1,28 @@
 {
-  "update_time": "2022-11-19 02:17:39",
-  "total": 206,
+  "update_time": "2022-11-20 02:29:50",
+  "total": 207,
   "language": "en-IN",
   "message": "ok",
   "status": true,
   "success": true,
   "data": [
+    {
+      "startdate": "20221119",
+      "fullstartdate": "202211191830",
+      "enddate": "20221120",
+      "url": "/th?id=OHR.LandartPainting_EN-IN7351909485_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+      "urlbase": "/th?id=OHR.LandartPainting_EN-IN7351909485",
+      "copyright": "Land art painting entitled 'World in Progress II' by artist Saype at the Headquarters of the United Nations in New York City (© Valentin Flauraud/Shutterstock)",
+      "copyrightlink": "https://www.bing.com/search?q=World+in+Progress+II+painting+saype&form=hpcapt&filters=HpDate%3a%2220221119_1830%22",
+      "title": "Creating a better world",
+      "quiz": "/search?q=Bing+homepage+quiz&filters=WQOskey:%22HPQuiz_20221119_LandartPainting%22&FORM=HPQUIZ",
+      "wp": false,
+      "hsh": "32974ecab0bb2872ed1cd3d9c0d70827",
+      "drk": 1,
+      "top": 1,
+      "bot": 1,
+      "hs": []
+    },
     {
       "startdate": "20221118",
       "fullstartdate": "202211181830",
