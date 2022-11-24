@@ -87,6 +87,14 @@ def get_count(mkt):
     return collection.count_documents({})
 
 '''
+获取全部文档
+@mkt 地区
+'''
+def get_all_data(mkt):
+    collection = db_init(mkt)
+    return collection.find({},{"_id":0}).sort("_id",-1)
+
+'''
 查询json分页数据
 @mkt 地区
 @query_params 查询参数

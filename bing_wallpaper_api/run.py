@@ -45,24 +45,17 @@ def add_data_to_database():
 # 添加数据到json 
 def add_data_to_json():
     for mkt in settings.LOCATION:
-        bing_json_data=read_json(mkt)
-        bing_lists=bing_json_data['data']
-        timearray=time.strptime(str(bing_lists[0]['enddate']),'%Y%m%d')
-        datetime=time.strftime('%Y-%m-%d', timearray)
-        url = settings.BINGAPI+"&mkt="+mkt
-        json_data=util.get_data(len(bing_lists),url)
-        NOW_DATE=json_data['datetime']
-        if cal_date_diff(datetime,NOW_DATE)>=1:
-            print(mkt+"：最近提交的日期为"+NOW_DATE+"，现在时间："+time.strftime('%Y-%m-%d %H:%M:%S', timearray))
-            print(mkt+":已添加"+NOW_DATE+"json数据")
-            json_data=json.loads(requests.get(url).text)['images'][0]
-            bing_lists.insert(0, json_data)
-            bing_json_data['data']=bing_lists
-            bing_json_data['update_time']=time.strftime("%Y-%m-%d %H:%M:%S",time.localtime())
-            bing_json_data['total']=len(bing_lists)
-            write_json(mkt,bing_json_data)
-        else:
-            print("json:"+mkt+":暂无添加数据")
+        NOW_DATE=time.strftime("%Y-%m-%d %H:%M:%S",time.localtime())
+        json_data=[]
+        for item in get_all_data(mkt):
+            json_data.append(item)
+        bing_json_data={}
+        bing_json_data['code']=200
+        bing_json_data['msg']="操作成功"
+        bing_json_data['total']=len(json_data)
+        bing_json_data['data']=json_data
+        write_json(mkt,bing_json_data)
+        print(mkt+":已同步"+NOW_DATE+"json数据")
 
 def read_json(run_type):
     with open(f'data/{run_type}_all.json', 'r', encoding="utf-8") as f:
