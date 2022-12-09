@@ -69,7 +69,7 @@ def format_data(lists):
     lists=lists[::-1]
     id=1
     for bing_json_data in lists:
-        timearray=time.strptime(str(bing_json_data['enddate']),'%Y%m%d')
+        timearray=time.strptime(str(bing_json_data['datetime']),'%Y-%m-%d')
         datetime=time.strftime('%Y-%m-%d', timearray)
         json_data={}
         json_data['id']=id
