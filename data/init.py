@@ -74,7 +74,7 @@ def format_data(lists):
         json_data={}
         json_data['id']=id
         json_data['title']=bing_json_data['title']
-        json_data['url']=BINGURL+bing_json_data['url'].replace("&rf=LaDigue_1920x1080.jpg&pid=hp","")
+        json_data['url']=bing_json_data['url'].replace("&rf=LaDigue_1920x1080.jpg&pid=hp","")
         json_data['datetime']=datetime
         json_data['copyright']=bing_json_data['copyright']
         json_data['copyrightlink']=bing_json_data['copyrightlink']
