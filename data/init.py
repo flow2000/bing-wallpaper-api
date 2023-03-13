@@ -69,16 +69,16 @@ def format_data(lists):
     lists=lists[::-1]
     id=1
     for bing_json_data in lists:
-        timearray=time.strptime(str(bing_json_data['enddate']),'%Y%m%d')
+        timearray=time.strptime(str(bing_json_data['datetime']),'%Y-%m-%d')
         datetime=time.strftime('%Y-%m-%d', timearray)
         json_data={}
         json_data['id']=id
-        json_data['title']=bing_json_data['title']
-        json_data['url']=BINGURL+bing_json_data['url'].replace("&rf=LaDigue_1920x1080.jpg&pid=hp","")
+        json_data['title']=bing_json_data.get("title","")
+        json_data['url']=bing_json_data['url'].replace("&rf=LaDigue_1920x1080.jpg&pid=hp","")
         json_data['datetime']=datetime
-        json_data['copyright']=bing_json_data['copyright']
-        json_data['copyrightlink']=bing_json_data['copyrightlink']
-        json_data['hsh']=bing_json_data['hsh']
+        json_data['copyright']=bing_json_data.get("copyright","")
+        json_data['copyrightlink']=bing_json_data.get("copyrightlink","")
+        json_data['hsh']=bing_json_data.get("hsh","")
         json_data['created_time']=str(time.strftime('%Y-%m-%d', time.localtime()))
         res.append(json_data)
         id=id+1
