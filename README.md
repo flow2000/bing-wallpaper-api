@@ -18,7 +18,7 @@
 
 自搭建服务需要必应壁纸资源的话可去到博客自取：
 
-[分享2009-至今的必应壁纸](https://blog.panghai.top/posts/6b5b8616/)
+[分享2009-至今的必应壁纸](https://blog.aqcoder.cn/posts/6b5b8616/)
 
 ### API接口说明
 
@@ -109,7 +109,7 @@ https://api.bimg.cc/total?mkt=zh-CN
 
 #### vercel部署
 
-1、在 [MongoDB](https://www.mongodb.com/cloud/atlas/register) 申请 MongoDB 帐号，具体可查看我的博客教程：[如何申请一个永久免费的 Mongodb 数据库 - 详细版](https://blog.panghai.top/posts/b267/)
+1、在 [MongoDB](https://www.mongodb.com/cloud/atlas/register) 申请 MongoDB 帐号，具体可查看我的博客教程：[如何申请一个永久免费的 Mongodb 数据库 - 详细版](https://blog.aqcoder.cn/posts/b267/)
 
 2、在[Vercel](https://vercel.com/signup)申请 Vercel帐号
 
@@ -124,7 +124,7 @@ https://api.bimg.cc/total?mkt=zh-CN
 #### docker部署
 
 ```shell
-docker run -itd --name bimg --restart=always --env MONGODB_URI= -p 9127:8888 flow2000/bimg
+docker run -itd --name bimg --restart=always --env MONGODB_URI=<url> -p 9127:8888 flow2000/bimg
 ```
 
 `MONGODB_URI`：存储方式为mongodb时的环境变量

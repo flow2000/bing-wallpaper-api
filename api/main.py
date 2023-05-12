@@ -8,12 +8,10 @@ import os
 
 from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
-from fastapi.responses import RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 import asyncio
 import aiohttp
-from pymongo import MongoClient
 from colorama import init
 init(autoreset=True)
 
@@ -51,8 +49,8 @@ async def index():
     try:
         async with aiohttp.ClientSession() as session:
             version_links=[
-                "https://blog.panghai.top/code/txt/version/bing-wallpaper-api.txt",
-                "https://static.panghai.top/txt/version/bing-wallpaper-api.txt",
+                "https://blog.aqcoder.cn/code/txt/version/bing-wallpaper-api.txt",
+                "https://static.aqcoder.cn/txt/version/bing-wallpaper-api.txt",
             ]
             tasks = [asyncio.create_task(fetch(session, link)) for link in version_links]
             done, pending = await asyncio.wait(tasks)
@@ -67,12 +65,12 @@ async def index():
         data={
             "current_version":settings.VERSION
         }
-        return BingResponse.error(msg="BingAPI 获取不到最新版本，但仍可使用，请联系：https://github.com/flow2000/bing-wallpaper-api",data=data)
+        return BingResponse.error(msg="BingAPI 获取不到最新版本，但仍可使用，请联系：https://github.com/flow2000/bing-wallpaper-api/issues/new",data=data)
     data={
         "current_version":settings.VERSION,
         "latest_version":latest_version
     }
-    return BingResponse.success(msg="BingAPI 部署成功，详情可查看文档：https://www.apifox.cn/apidoc/shared-961673e6-161d-4129-88b6-e7b0a3b86cf1",data=data)
+    return BingResponse.success(msg="BingAPI 部署成功，详情可查看文档：https://api-bimg-cc.apifox.cn",data=data)
 
 async def fetch(session, url):
     async with session.get(url, verify_ssl=False) as response:
