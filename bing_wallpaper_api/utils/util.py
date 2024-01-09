@@ -29,6 +29,8 @@ def check_params(page,limit,order,w,h,uhd,mkt):
         return False
     if page<=0 or limit<=0 or limit>settings.LIMIT_DATA:
         return False
+    if w == h:
+        return False
     if uhd==False and settings.W.count(w)==0 or settings.H.count(h)==0:
         return False
     return True
