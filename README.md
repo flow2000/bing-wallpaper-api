@@ -68,6 +68,7 @@ https://api.bimg.cc/all?page=1&order=asc&limit=10&w=1920&h=1080&mkt=zh-CN
 resolutions: [
     '1920x1200',
     '1920x1080',
+    '1080x1920',
     '1366x768',
     '1280x768',
     '1024x768',
