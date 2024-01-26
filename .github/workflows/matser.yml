@@ -53,7 +53,3 @@ jobs:
        with:
          github_token: ${{ secrets.MY_GIT_TOKEN }}
          branch: master
-
-     - name: Refresh CDN #没有使用腾讯云cdn可删除该步骤
-       run: |
-         python cdn.py ${{ secrets.TENCENT_SECRETID }} ${{ secrets.TENCENT_SECRETKEY }} ${{ secrets.CDN_URL }} 
