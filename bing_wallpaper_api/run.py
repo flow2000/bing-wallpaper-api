@@ -22,8 +22,8 @@ def init_data_to_database():
             url = settings.BINGAPI+"&mkt="+mkt
             json_data=util.get_data(0,url)
             insert_one(mkt,json_data)
-            print(str(time.strftime('%Y-%m-%d', time.localtime()))+":今日壁纸添加成功，今日壁纸信息\n"+str(json_data)+"\n")
-            print("已收录"+json_data['datetime']+"到"+json_data['datetime']+"的壁纸数据，总计1条")
+            print(+mkt+"地区："+str(time.strftime('%Y-%m-%d', time.localtime()))+":今日壁纸添加成功，今日壁纸信息\n"+str(json_data)+"\n")
+            print("已收录"+mkt+"地区："+json_data['datetime']+"到"+json_data['datetime']+"的壁纸数据，总计1条")
             print("初始化结束\n")
 
 # 添加数据库数据    
@@ -37,8 +37,8 @@ def add_data_to_database():
             first_data = query_first_one(mkt)
             latest_data = query_latest_one(mkt)
             count = get_count(mkt)
-            print(str(time.strftime('%Y-%m-%d', time.localtime()))+":今日壁纸添加成功，今日壁纸信息\n"+str(json_data)+"\n")
-            print("已收录"+first_data['datetime']+"到"+latest_data['datetime']+"的壁纸数据，总计"+str(count)+"条")
+            print(+mkt+"地区："+str(time.strftime('%Y-%m-%d', time.localtime()))+":今日壁纸添加成功，今日壁纸信息\n"+str(json_data)+"\n")
+            print("已收录"+mkt+"地区："+first_data['datetime']+"到"+latest_data['datetime']+"的壁纸数据，总计"+str(count)+"条")
         else:
             print("集合:"+mkt+":暂无添加数据")
 
