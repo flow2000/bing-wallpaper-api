@@ -22,7 +22,7 @@ def init_data_to_database():
             url = settings.BINGAPI+"&mkt="+mkt
             json_data=util.get_data(0,url)
             insert_one(mkt,json_data)
-            print(+mkt+"地区："+str(time.strftime('%Y-%m-%d', time.localtime()))+":今日壁纸添加成功，今日壁纸信息\n"+str(json_data)+"\n")
+            print(mkt+"地区："+str(time.strftime('%Y-%m-%d', time.localtime()))+":今日壁纸添加成功，今日壁纸信息\n"+str(json_data)+"\n")
             print("已收录"+mkt+"地区："+json_data['datetime']+"到"+json_data['datetime']+"的壁纸数据，总计1条")
             print("初始化结束\n")
 
