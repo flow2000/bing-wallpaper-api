@@ -1,8 +1,18 @@
 {
   "code": 200,
   "msg": "操作成功",
-  "total": 691,
+  "total": 692,
   "data": [
+    {
+      "id": 692,
+      "title": "L'eau, un bien rare et précieux",
+      "url": "https://bing.com/th?id=OHR.WaikatoWater_FR-FR8437603608_1920x1080.jpg",
+      "datetime": "2024-03-22",
+      "copyright": "Blue Spring, sentier de Te Waihou, Nouvelle-Zélande (© Ian Beattie/Alamy)",
+      "copyrightlink": "https://www.bing.com/search?q=journ%C3%A9e+mondiale+de+l%27eau+&form=hpcapt&filters=HpDate%3a%2220240321_2300%22",
+      "hsh": "669d51ad1eba577572082aecc1706815",
+      "created_time": "2024-03-22"
+    },
     {
       "id": 691,
       "title": "Le refuge du gorille",
