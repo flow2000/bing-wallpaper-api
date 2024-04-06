@@ -1,8 +1,18 @@
 {
   "code": 200,
   "msg": "操作成功",
-  "total": 705,
+  "total": 706,
   "data": [
+    {
+      "id": 706,
+      "title": "A royal view",
+      "url": "https://bing.com/th?id=OHR.JapanHimeji_EN-GB1424616549_1920x1080.jpg",
+      "datetime": "2024-04-06",
+      "copyright": "Himeji Castle, Himeji, Hyōgo Prefecture, Japan (© Julian Elliott Photography/Getty Images)",
+      "copyrightlink": "https://www.bing.com/search?q=Himeji+Castle+Japan&form=hpcapt&filters=HpDate%3a%2220240405_2300%22",
+      "hsh": "1a761ddfa87f10fee1da93d7a94102d2",
+      "created_time": "2024-04-06"
+    },
     {
       "id": 705,
       "title": "A dive into the blue",
