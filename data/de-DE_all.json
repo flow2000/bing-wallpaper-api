@@ -1,8 +1,18 @@
 {
   "code": 200,
   "msg": "操作成功",
-  "total": 71,
+  "total": 72,
   "data": [
+    {
+      "id": 72,
+      "title": "Biber vs. Bieber: Wer ist putziger?",
+      "url": "https://bing.com/th?id=OHR.BeaverDenali_DE-DE4088011437_1920x1080.jpg",
+      "datetime": "2024-04-07",
+      "copyright": "Kanadischer Biber in einem Teich in der Nähe des Wonder Lake, Denali-Nationalpark, Alaska, USA (© Paul Souders/Getty Images)",
+      "copyrightlink": "https://www.bing.com/search?q=Internationaler+Tag+der+Biber&form=hpcapt&filters=HpDate%3a%2220240406_2200%22",
+      "hsh": "502c19b388708888488d3597c3e901d3",
+      "created_time": "2024-04-07"
+    },
     {
       "id": 71,
       "title": "Morgenländische Burg",

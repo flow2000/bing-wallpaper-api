@@ -1,8 +1,18 @@
 {
   "code": 200,
   "msg": "操作成功",
-  "total": 65,
+  "total": 66,
   "data": [
+    {
+      "id": 66,
+      "title": "Un castor branché !",
+      "url": "https://bing.com/th?id=OHR.BeaverDenali_FR-FR4899490419_1920x1080.jpg",
+      "datetime": "2024-04-07",
+      "copyright": "Castor du Canada dans un étang près du lac Wonder, parc national de Denali, Alaska, États-Unis (© Paul Souders/Getty Images)",
+      "copyrightlink": "https://www.bing.com/search?q=castor+du+canada&form=hpcapt&filters=HpDate%3a%2220240406_2200%22",
+      "hsh": "5102fbe774e273a289711aa26b468129",
+      "created_time": "2024-04-07"
+    },
     {
       "id": 65,
       "title": "Une vue royale",
