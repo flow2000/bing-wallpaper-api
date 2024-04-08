@@ -1,8 +1,18 @@
 {
   "code": 200,
   "msg": "操作成功",
-  "total": 66,
+  "total": 67,
   "data": [
+    {
+      "id": 67,
+      "title": "Look, I'm a branch manager!",
+      "url": "https://bing.com/th?id=OHR.BeaverDenali_EN-CA6851108390_1920x1080.jpg",
+      "datetime": "2024-04-08",
+      "copyright": "North American beaver in a pond near Wonder Lake, Denali National Park, Alaska (© Paul Souders/Getty Images)",
+      "copyrightlink": "https://www.bing.com/search?q=International+Beaver+Day&form=hpcapt&filters=HpDate%3a%2220240407_0400%22",
+      "hsh": "3222c52aff52217b8806b81846d0285a",
+      "created_time": "2024-04-08"
+    },
     {
       "id": 66,
       "title": "A royal view",
