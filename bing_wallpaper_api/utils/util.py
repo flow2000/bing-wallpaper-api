@@ -7,6 +7,19 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
 import settings
 
+# 构造必应壁纸信息数据
+def build_json_data(id, bing_json_data):
+    json_data={}
+    json_data['id']=id+1
+    json_data['title']=bing_json_data['images'][0]['title']
+    json_data['url']=settings.BINGURL+bing_json_data['images'][0]['url'].replace("&rf=LaDigue_1920x1080.jpg&pid=hp","")
+    json_data['datetime']=str(time.strftime('%Y-%m-%d', time.localtime()))
+    json_data['copyright']=bing_json_data['images'][0]['copyright']
+    json_data['copyrightlink']=bing_json_data['images'][0]['copyrightlink']
+    json_data['hsh']=bing_json_data['images'][0]['hsh']
+    json_data['created_time']=str(time.strftime('%Y-%m-%d', time.localtime()))
+    return json_data
+
 # 获取必应接口数据
 def get_data(id,url):
     json_data={}

@@ -29,7 +29,6 @@ def db_init(mkt="zh-CN"):
     if mkt=="de-DE":
         return db['de'] 
     return db['cn']
-    return collection
 
 '''
 根据地区插入一条json数据
@@ -60,7 +59,7 @@ def query_random_one(mkt):
         id = random.sample(list(range(1,num+1)),1)[0]
     else:
         return {}
-    return collection.find_one({"id":id},{"_id":0 })
+    return collection.find_one({"id":id},{"datetime":0 })
 
 '''
 查询一条最新插入文档数据
@@ -68,7 +67,7 @@ def query_random_one(mkt):
 '''
 def query_latest_one(mkt):
     collection = db_init(mkt)
-    return collection.find_one(sort=[('_id', -1)])
+    return collection.find_one(sort=[('datetime', -1)])
 
 '''
 查询第一条插入文档数据
@@ -76,7 +75,7 @@ def query_latest_one(mkt):
 '''
 def query_first_one(mkt):
     collection = db_init(mkt)
-    return collection.find_one(sort=[('_id', 1)])
+    return collection.find_one(sort=[('datetime', 1)])
 
 '''
 获取文档数量
@@ -92,7 +91,7 @@ def get_count(mkt):
 '''
 def get_all_data(mkt):
     collection = db_init(mkt)
-    return collection.find({},{"_id":0}).sort("_id",-1)
+    return collection.find({},{"_id":0}).sort("datetime",-1)
 
 '''
 查询json分页数据
@@ -107,7 +106,7 @@ def query_data(mkt,query_params):
     page = query_params['page']
     order = query_params['order']
     limit = query_params['limit']
-    return collection.find({},{"_id":0}).skip((page-1)*limit).sort("_id",order).limit(limit)
+    return collection.find({},{"_id":0}).skip((page-1)*limit).sort("datetime",order).limit(limit)
 
 '''
 删除json数据
