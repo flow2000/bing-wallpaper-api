@@ -45,7 +45,7 @@ def fix_database_omission_bing():
             for bing_json_data in bing_json_data_set['images']:
                 json_data={}
                 count = count + 1
-                json_data['id']=count+1
+                json_data['id']=count
                 json_data['title']=bing_json_data['title']
                 json_data['url']=settings.BINGURL+bing_json_data['url'].replace("&rf=LaDigue_1920x1080.jpg&pid=hp","")
                 json_data['datetime']=datetime.strptime(bing_json_data['enddate'], "%Y%m%d").strftime("%Y-%m-%d")
