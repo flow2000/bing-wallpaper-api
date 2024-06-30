@@ -19,7 +19,7 @@ def init_data_to_database():
     for mkt in settings.LOCATION:
         if get_count(mkt)==0:
             print("初始化"+mkt)
-            url = settings.BINGAPI+"&mkt="+mkt
+            url = settings.BINGAPI+"?n=1&format=js&idx=0&mkt="+mkt
             json_data=util.get_data(0,url)
             insert_one(mkt,json_data)
             print(str(time.strftime('%Y-%m-%d', time.localtime()))+":今日壁纸添加成功，今日壁纸信息\n"+str(json_data)+"\n")
@@ -30,7 +30,7 @@ def init_data_to_database():
 def add_data_to_database():
     for mkt in settings.LOCATION:
         count = get_count(mkt)
-        url = settings.BINGAPI+"&mkt="+mkt
+        url = settings.BINGAPI+"?n=1&format=js&idx=0&mkt="+mkt
         json_data=util.get_data(count,url)
         if cal_date_diff(query_latest_one(mkt)['datetime'],json_data['datetime'])>=1:
             insert_one(mkt,json_data)

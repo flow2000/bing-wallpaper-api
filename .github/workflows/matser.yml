@@ -43,6 +43,7 @@ jobs:
        working-directory: ./
        run: |
          python bing_wallpaper_api/run.py
+         python bing_wallpaper_api/run_fix_last_day.py
          
      - name: Commit json Files
        run: |
