@@ -32,7 +32,7 @@ jobs:
        working-directory: ./bing_wallpaper_api
        run: |
          pip install -r requirements.txt
-         pip install --upgrade pip
+         pip install --upgrade pip 'pip<24.1'
          pip install tencentcloud-sdk-python
          pip install tencentcloud-sdk-python-cdn   
  
