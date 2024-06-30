@@ -2,7 +2,7 @@ FROM python:3.8.5
 
 RUN python -m pip install pip==23.3.2 && \
 pip install fastapi==0.68.0 && \
-pip install uvicorn==0.14.0 && \
+pip install uvicorn==0.30.1 && \
 pip install aiofiles==23.2.1 && \
 pip install fastapi-async-sqlalchemy==0.6.1 && \
 pip install python-multipart==0.0.9 && \
