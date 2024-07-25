@@ -6,7 +6,7 @@ import random
 import sys
 import os
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
@@ -22,7 +22,16 @@ from bing_wallpaper_api.utils import util
 from api import BingResponse
 from api.mongodbapi import *
 
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
+
 app = FastAPI()
+
+limiter = Limiter(key_func=get_remote_address)
+app = FastAPI()
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 # 设置CORS
 origins = [
@@ -37,7 +46,8 @@ app.add_middleware(
 )
 
 @app.get("/",tags=["API"], summary="返回部署成功信息")
-async def index():
+@limiter.limit("10/minute")  # 每分钟最多10个请求
+async def index(request: Request):
     '''
     响应字段说明：
     - code:状态码
@@ -77,14 +87,16 @@ async def fetch(session, url):
         return await response.text()
 
 @app.get("/favicon.ico",tags=["INFO"], summary="返回图标")
-async def favicon():
+@limiter.limit("10/minute")  # 每分钟最多10个请求
+async def favicon(request: Request):
     '''
     - 返回图标
     '''
     return StreamingResponse(open('favicon.ico', mode="rb"), media_type="image/jpg")
 
 @app.get("/today",tags=["API"], summary="返回今日壁纸")
-async def latest(w: str = "1920", h: str = "1080", uhd: bool = False, mkt: str = "zh-CN"):
+@limiter.limit("10/minute")  # 每分钟最多10个请求
+async def latest(request: Request, w: str = "1920", h: str = "1080", uhd: bool = False, mkt: str = "zh-CN"):
     '''
     请求字段说明：
     - w:图片宽度,默认1920
@@ -95,7 +107,8 @@ async def latest(w: str = "1920", h: str = "1080", uhd: bool = False, mkt: str =
     return latest_one(w,h,uhd,mkt)
 
 @app.get("/random",tags=["API"], summary="返回随机壁纸")
-async def random(w: str = "1920", h: str = "1080", uhd: bool = False, mkt: str = "zh-CN"):
+@limiter.limit("10/minute")  # 每分钟最多10个请求
+async def random(request: Request, w: str = "1920", h: str = "1080", uhd: bool = False, mkt: str = "zh-CN"):
     '''
     请求字段说明：
     - w:图片宽度,默认1920
@@ -106,7 +119,8 @@ async def random(w: str = "1920", h: str = "1080", uhd: bool = False, mkt: str =
     return random_one(w,h,uhd,mkt)
 
 @app.get("/all",tags=["API"], summary="返回分页数据")
-async def all(page: int = 1, limit: int = 10, order: str="desc", w: int = 1920, h: int = 1080, uhd: bool = False, mkt: str = "zh-CN"):
+@limiter.limit("10/minute")  # 每分钟最多10个请求
+async def all(request: Request, page: int = 1, limit: int = 10, order: str="desc", w: int = 1920, h: int = 1080, uhd: bool = False, mkt: str = "zh-CN"):
     '''
     请求字段说明：
     - page:页码,默认1
@@ -121,7 +135,8 @@ async def all(page: int = 1, limit: int = 10, order: str="desc", w: int = 1920, 
     return query_all(page,limit,order,w,h,uhd,mkt)
 
 @app.get("/total",tags=["API"], summary="返回数据总数")
-async def total(mkt: str = "zh-CN"):
+@limiter.limit("10/minute")  # 每分钟最多10个请求
+async def total(request: Request, mkt: str = "zh-CN"):
     '''
     请求字段说明：
     - mkt:地区，默认zh-CN。目前支持的地区码：zh-CN, de-DE, en-CA, en-GB, en-IN, en-US, fr-FR, it-IT, ja-JP
