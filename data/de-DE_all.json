@@ -1,8 +1,18 @@
 {
   "code": 200,
   "msg": "操作成功",
-  "total": 1068,
+  "total": 1069,
   "data": [
+    {
+      "id": 1069,
+      "title": "Farben der Freude",
+      "url": "https://bing.com/th?id=OHR.SaguaroRainbow_DE-DE8863396941_1920x1080.jpg",
+      "datetime": "2025-04-03",
+      "copyright": "Regenbogen über dem Wasson Peak, Saguaro-Nationalpark, Arizona, USA (© Frank Staub/Getty Images)",
+      "copyrightlink": "https://www.bing.com/search?q=Regenbogen+Besonderheiten&form=hpcapt&filters=HpDate%3a%2220250402_2200%22",
+      "hsh": "fa404660a89568d8758adea6146ef629",
+      "created_time": "2025-04-03"
+    },
     {
       "id": 1068,
       "title": "Bizarre Felsformationen",
