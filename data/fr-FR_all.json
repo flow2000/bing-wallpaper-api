@@ -1,8 +1,18 @@
 {
   "code": 200,
   "msg": "操作成功",
-  "total": 1072,
+  "total": 1073,
   "data": [
+    {
+      "id": 1073,
+      "title": "Le bâtisseur des rivières",
+      "url": "https://bing.com/th?id=OHR.BeaverDay_FR-FR0993512788_1920x1080.jpg",
+      "datetime": "2025-04-07",
+      "copyright": "Castor du Canada, Moran, Wyoming, États-Unis (© Enrique Aguirre Aves/Getty Images)",
+      "copyrightlink": "https://www.bing.com/search?q=castor+du+canada&form=hpcapt&filters=HpDate%3a%2220250406_2200%22",
+      "hsh": "3c4e6449f56686071b456b4cf50c75c5",
+      "created_time": "2025-04-07"
+    },
     {
       "id": 1072,
       "title": "Le royaume des tulipes",
