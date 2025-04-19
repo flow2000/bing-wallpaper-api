@@ -23,10 +23,10 @@ jobs:
        uses: actions/checkout@master
     
      - name: Set up Python
-       uses: actions/setup-python@v1
+       uses: actions/setup-python@v5
        with:
         cache: 'pip'
-        python-version: 3.9.21
+        python-version: 3.9.12
 
      - name: Install Requirements
        working-directory: ./bing_wallpaper_api
