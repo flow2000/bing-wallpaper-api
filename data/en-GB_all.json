@@ -1,8 +1,18 @@
 {
   "code": 200,
   "msg": "操作成功",
-  "total": 1271,
+  "total": 1272,
   "data": [
+    {
+      "id": 1272,
+      "title": "From 'Grey Ghost' to ghost stories",
+      "url": "https://bing.com/th?id=OHR.QueenMary_EN-GB3607133063_1920x1080.jpg",
+      "datetime": "2025-10-24",
+      "copyright": "Night view of the RMS Queen Mary, Long Beach, California, United States (© Kit Leong/Shutterstock)",
+      "copyrightlink": "https://www.bing.com/search?q=RMS+Queen+Mary&form=hpcapt&filters=HpDate%3a%2220251023_2300%22",
+      "hsh": "39bab65c542200451699f89e5f499fbf",
+      "created_time": "2025-10-24"
+    },
     {
       "id": 1271,
       "title": "Snow much love",
