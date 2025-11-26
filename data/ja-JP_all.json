@@ -1,8 +1,18 @@
 {
   "code": 200,
   "msg": "操作成功",
-  "total": 1305,
+  "total": 1306,
   "data": [
+    {
+      "id": 1306,
+      "title": "今日は「いい風呂の日」",
+      "url": "https://bing.com/th?id=OHR.TamagawaHotspring2025_JA-JP7774958074_1920x1080.jpg",
+      "datetime": "2025-11-26",
+      "copyright": "玉川温泉, 秋田県 仙北市 (© jiraphoto/Shutterstock)",
+      "copyrightlink": "https://www.bing.com/search?q=%E7%8E%89%E5%B7%9D%E6%B8%A9%E6%B3%89&form=hpcapt&filters=HpDate%3a%2220251125_1500%22",
+      "hsh": "fd38608dccaf336473ecf014984ac18e",
+      "created_time": "2025-11-26"
+    },
     {
       "id": 1305,
       "title": "願いを託す噴水",
