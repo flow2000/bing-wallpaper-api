@@ -1,8 +1,18 @@
 {
   "code": 200,
   "msg": "操作成功",
-  "total": 1306,
+  "total": 1307,
   "data": [
+    {
+      "id": 1307,
+      "title": "崖に彫られた巨大な石仏",
+      "url": "https://bing.com/th?id=OHR.LeshanBuddha_JA-JP7625382649_1920x1080.jpg",
+      "datetime": "2025-11-27",
+      "copyright": "楽山大仏, 中国 四川省 (© www.anotherdayattheoffice.org/Getty Images)",
+      "copyrightlink": "https://www.bing.com/search?q=%E6%A5%BD%E5%B1%B1%E5%A4%A7%E4%BB%8F&form=hpcapt&filters=HpDate%3a%2220251126_1500%22",
+      "hsh": "d032d245b4c1bb269d8e15dbcfdce97c",
+      "created_time": "2025-11-27"
+    },
     {
       "id": 1306,
       "title": "今日は「いい風呂の日」",
