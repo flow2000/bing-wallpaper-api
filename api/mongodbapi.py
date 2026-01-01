@@ -43,7 +43,7 @@ def query_all(page,limit,order,w,h,uhd,mkt,year=None):
         item['url']=item['url'].replace(util.contact_w_h(settings.DEFAULT_W,settings.DEFAULT_H),link_str)
         data.append(item)
     total=len(data)
-    return BingResponse.success(data=data,total=total)
+    return BingResponse.table_success(data=data,total=total)
 
 def query_total_num(mkt):
     return BingResponse.success(data=get_count(mkt))
