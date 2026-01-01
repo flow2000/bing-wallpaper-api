@@ -45,3 +45,6 @@ DEFAULT_LIMIT=10
 
 # 返回的最大数据数量
 LIMIT_DATA=100
+
+# 年份查询时的最大返回数据数量（闰年天数）
+YEAR_LIMIT=366
