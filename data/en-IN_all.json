@@ -1,8 +1,18 @@
 {
   "code": 200,
   "msg": "操作成功",
-  "total": 1341,
+  "total": 1342,
   "data": [
+    {
+      "id": 1342,
+      "title": "Stretch into the New Year",
+      "url": "https://bing.com/th?id=OHR.NewYearFox_EN-IN0228812911_1920x1080.jpg",
+      "datetime": "2026-01-01",
+      "copyright": "Arctic fox sleeping (© Chansak Joe/Getty Images)",
+      "copyrightlink": "https://www.bing.com/search?q=New+Years+Day&form=hpcapt&filters=HpDate%3a%2220251231_1830%22",
+      "hsh": "0e058b7c534614edb492f20ee75aceda",
+      "created_time": "2026-01-01"
+    },
     {
       "id": 1341,
       "title": "Where Berlin bridges the New Year",
