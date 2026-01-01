@@ -29,7 +29,8 @@ def query_all(page,limit,order,w,h,uhd,mkt,year=None):
     query_params={
         "page":page,
         "limit":limit,
-        "order":order
+        "order":order,
+        "year":year
     }
     
     # 如果指定了年份，添加年份过滤条件
