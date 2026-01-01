@@ -119,6 +119,22 @@ def query_data(mkt,query_params):
         query_condition["datetime"] = {"$regex": f"^{year}-"}
     
     return collection.find(query_condition,{"_id":0}).skip((page-1)*limit).sort("datetime",order).limit(limit)
+    
+'''
+获取查询总数
+@mkt 地区
+@query_params 查询参数（同 query_data）
+'''
+def get_query_count(mkt, query_params):
+    collection = db_init(mkt)
+    query_condition = {}
+
+    # 如果指定了年份，添加年份过滤条件
+    if 'year' in query_params and query_params['year']:
+        year = query_params['year']
+        query_condition["datetime"] = {"$regex": f"^{year}-"}
+
+    return collection.count_documents(query_condition)
 
 '''
 删除json数据
