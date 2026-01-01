@@ -120,19 +120,30 @@ async def random(request: Request, w: str = "1920", h: str = "1080", uhd: bool =
 
 @app.get("/all",tags=["API"], summary="返回分页数据")
 @limiter.limit("10/minute")  # 每分钟最多10个请求
-async def all(request: Request, page: int = 1, limit: int = 10, order: str="desc", w: int = 1920, h: int = 1080, uhd: bool = False, mkt: str = "zh-CN"):
+async def all(request: Request, page: int = 1, limit: int = 10, order: str="desc", year: int = None, w: int = 1920, h: int = 1080, uhd: bool = False, mkt: str = "zh-CN"):
     '''
     请求字段说明：
     - page:页码,默认1
-    - limit:页数,默认10
+    - limit:页数,默认10。当指定year参数时，最大可设置为366（闰年天数）
+    - order:排序方式,默认desc降序，可选asc升序
+    - year:年份过滤,可选。指定后只返回该年份的数据，要求年份>=2016
     - w:图片宽度,默认1920
     - h:图片长度,默认1080
     - uhd:是否4k,默认False,为True时请求参数w和h无效。目前支持的分辨率:1920x1200, 1920x1080, 1080x1920, 1366x768, 1280x768, 1024x768, 800x600, 800x480, 768x1280, 720x1280, 640x480, 480x800, 400x240, 320x240, 240x320
     - mkt:地区，默认zh-CN。目前支持的地区码：zh-CN, de-DE, en-CA, en-GB, en-IN, en-US, fr-FR, it-IT, ja-JP
+    
+    示例：
+    - /all?year=2023  返回2023年的所有壁纸
+    - /all?year=2023&limit=200  返回2023年的壁纸，最多200条
+    - /all?year=2023&limit=366  返回2023年的所有壁纸（最多366条）
     '''
-    if util.check_params(page,limit,order,w,h,uhd,mkt)==False:
+    # 检查年份参数
+    if year is not None:
+        if util.check_year_param(year) == False:
+            return BingResponse.error('年份参数错误，要求年份>=2016')
+    if util.check_params(page,limit,order,w,h,uhd,mkt,year)==False:
         return BingResponse.error('请求参数错误')
-    return query_all(page,limit,order,w,h,uhd,mkt)
+    return query_all(page,limit,order,w,h,uhd,mkt,year)
 
 @app.get("/total",tags=["API"], summary="返回数据总数")
 @limiter.limit("10/minute")  # 每分钟最多10个请求

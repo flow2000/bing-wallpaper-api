@@ -14,7 +14,7 @@ from api import BingResponse
 if settings.DATABASE=="mongodb":
     from utils.mongodb_utils import *
 
-def query_all(page,limit,order,w,h,uhd,mkt):
+def query_all(page,limit,order,w,h,uhd,mkt,year=None):
     if order == "desc":
         order = -1
     else:
@@ -24,11 +24,18 @@ def query_all(page,limit,order,w,h,uhd,mkt):
         link_str=util.contact_w_h(w,h)
     else:
         link_str="UHD"
+    
+    # 构建查询参数
     query_params={
         "page":page,
         "limit":limit,
         "order":order
     }
+    
+    # 如果指定了年份，添加年份过滤条件
+    if year:
+        query_params["year"] = year
+    
     query_result=query_data(mkt,query_params)
     data=[]
     for item in query_result:

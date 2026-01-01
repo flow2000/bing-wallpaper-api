@@ -100,13 +100,25 @@ def get_all_data(mkt):
 page 页数
 order 升序/降序 升序为1 降序为-1
 limit 每页数量
+year 年份过滤（可选）
 '''
 def query_data(mkt,query_params):
     collection = db_init(mkt)
     page = query_params['page']
     order = query_params['order']
     limit = query_params['limit']
-    return collection.find({},{"_id":0}).skip((page-1)*limit).sort("datetime",order).limit(limit)
+    
+    # 构建查询条件
+    query_condition = {}
+    
+    # 如果指定了年份，添加年份过滤条件
+    if 'year' in query_params and query_params['year']:
+        year = query_params['year']
+        # datetime字段格式为 "YYYY-MM-DD"，通过正则匹配年份
+        import re
+        query_condition["datetime"] = {"$regex": f"^{year}-"}
+    
+    return collection.find(query_condition,{"_id":0}).skip((page-1)*limit).sort("datetime",order).limit(limit)
 
 '''
 删除json数据
