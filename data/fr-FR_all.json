@@ -1,8 +1,18 @@
 {
   "code": 200,
   "msg": "操作成功",
-  "total": 1376,
+  "total": 1377,
   "data": [
+    {
+      "id": 1377,
+      "title": "L’art sans égal des vagues",
+      "url": "https://bing.com/th?id=OHR.MaltaSalt_FR-FR2211478643_1920x1080.jpg",
+      "datetime": "2026-02-05",
+      "copyright": "Les marais salants de Gozo, Malte (© Marius Roman/Getty Images)",
+      "copyrightlink": "https://www.bing.com/search?q=Gozo+Malte&form=hpcapt&filters=HpDate%3a%2220260204_2300%22",
+      "hsh": "82763cf368f3eab5d88012f1eb34aa0d",
+      "created_time": "2026-02-05"
+    },
     {
       "id": 1376,
       "title": "La grâce incarnée",
