@@ -1,8 +1,18 @@
 {
   "code": 200,
   "msg": "操作成功",
-  "total": 1377,
+  "total": 1378,
   "data": [
+    {
+      "id": 1378,
+      "title": "Stuck in a grid",
+      "url": "https://bing.com/th?id=OHR.MaltaSalt_EN-US0310458987_1920x1080.jpg",
+      "datetime": "2026-02-06",
+      "copyright": "Salt evaporation ponds on the island of Gozo, Malta (© Marius Roman/Getty Images)",
+      "copyrightlink": "https://www.bing.com/search?q=Gozo+Malta&form=hpcapt&filters=HpDate%3a%2220260205_0800%22",
+      "hsh": "1d81525433809beb2e0272d1b4868e17",
+      "created_time": "2026-02-06"
+    },
     {
       "id": 1377,
       "title": "The face of change",
