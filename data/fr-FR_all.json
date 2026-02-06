@@ -1,8 +1,18 @@
 {
   "code": 200,
   "msg": "操作成功",
-  "total": 1377,
+  "total": 1378,
   "data": [
+    {
+      "id": 1378,
+      "title": "Un sommet qui tombe à pic pour les JO d’hiver",
+      "url": "https://bing.com/th?id=OHR.GiauPass_FR-FR7292387386_1920x1080.jpg",
+      "datetime": "2026-02-06",
+      "copyright": "Le Ra Gusela, col de Giau Pass, près de Cortina d'Ampezzo, Italie (© Tomasz Podolski/Getty Images)",
+      "copyrightlink": "https://www.bing.com/search?q=Jeux+Olympiques+hiver+2026&form=hpcapt&filters=HpDate%3a%2220260205_2300%22",
+      "hsh": "f5e96d199a9c5d87fa03088b00637f80",
+      "created_time": "2026-02-06"
+    },
     {
       "id": 1377,
       "title": "L’art sans égal des vagues",
