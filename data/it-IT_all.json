@@ -1,8 +1,18 @@
 {
   "code": 200,
   "msg": "操作成功",
-  "total": 1378,
+  "total": 1379,
   "data": [
+    {
+      "id": 1379,
+      "title": "Il silenzio del sale",
+      "url": "https://bing.com/th?id=OHR.SalarUyuni_IT-IT0441176057_1920x1080.jpg",
+      "datetime": "2026-02-07",
+      "copyright": "Salina del Salar de Uyuni, Bolivia (© Abstract Aerial Art/Getty Images)",
+      "copyrightlink": "https://www.bing.com/search?q=salar+de+uyuni+Bolivia&form=hpcapt",
+      "hsh": "b96e832a8264357d1408ac2e682f884b",
+      "created_time": "2026-02-07"
+    },
     {
       "id": 1378,
       "title": "Vette, neve e medaglie",

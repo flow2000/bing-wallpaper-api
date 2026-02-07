@@ -1,8 +1,18 @@
 {
   "code": 200,
   "msg": "操作成功",
-  "total": 1377,
+  "total": 1378,
   "data": [
+    {
+      "id": 1378,
+      "title": "Salt, sky and the stillness between",
+      "url": "https://bing.com/th?id=OHR.SalarUyuni_EN-GB6291060813_1920x1080.jpg",
+      "datetime": "2026-02-07",
+      "copyright": "Salar de Uyuni salt flats in Bolivia (© Abstract Aerial Art/Getty Images)",
+      "copyrightlink": "https://www.bing.com/search?q=Salar+de+Uyuni+Bolivia&form=hpcapt&filters=HpDate%3a%2220260207_0000%22",
+      "hsh": "fc312af105e0f1b22d953f0559c34228",
+      "created_time": "2026-02-07"
+    },
     {
       "id": 1377,
       "title": "Ra Gusela—peak of the Olympic season",

@@ -1,8 +1,18 @@
 {
   "code": 200,
   "msg": "操作成功",
-  "total": 1378,
+  "total": 1379,
   "data": [
+    {
+      "id": 1379,
+      "title": "Stille zwischen Salz und Himmel",
+      "url": "https://bing.com/th?id=OHR.SalarUyuni_DE-DE1726865557_1920x1080.jpg",
+      "datetime": "2026-02-07",
+      "copyright": "Salzebene Salar de Uyuni, Bolivien (© Abstract Aerial Art/Getty Images)",
+      "copyrightlink": "https://www.bing.com/search?q=Salar+de+Uyuni+Bolivien&form=hpcapt&filters=HpDate%3a%2220260206_2300%22",
+      "hsh": "77a5a775bf59c4d09a64f71f78ad7475",
+      "created_time": "2026-02-07"
+    },
     {
       "id": 1378,
       "title": "Die Dolomiten im Olympiafieber",

@@ -1,8 +1,18 @@
 {
   "code": 200,
   "msg": "操作成功",
-  "total": 1378,
+  "total": 1379,
   "data": [
+    {
+      "id": 1379,
+      "title": "Le désert de sel le plus vaste au monde",
+      "url": "https://bing.com/th?id=OHR.SalarUyuni_FR-FR3839950538_1920x1080.jpg",
+      "datetime": "2026-02-07",
+      "copyright": "Salar d'Uyuni, Bolivie  (© Abstract Aerial Art/Getty Images)",
+      "copyrightlink": "https://www.bing.com/search?q=Salar+d%27Uyuni+Bolivie&form=hpcapt&filters=HpDate%3a%2220260206_2300%22",
+      "hsh": "46a5f94b6a79eac391ad1b1991781d54",
+      "created_time": "2026-02-07"
+    },
     {
       "id": 1378,
       "title": "Un sommet qui tombe à pic pour les JO d’hiver",
