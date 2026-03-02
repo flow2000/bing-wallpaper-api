@@ -1,8 +1,18 @@
 {
   "code": 200,
   "msg": "操作成功",
-  "total": 1401,
+  "total": 1402,
   "data": [
+    {
+      "id": 1402,
+      "title": "Floating legacies",
+      "url": "https://bing.com/th?id=OHR.SamuiThailand_EN-IN3365057926_1920x1080.jpg",
+      "datetime": "2026-03-02",
+      "copyright": "Harbour and longtail boats at Ko Samui, Thailand (© Foto2rich/Shutterstock)",
+      "copyrightlink": "https://www.bing.com/search?q=Ko+Samui+Thailand&form=hpcapt&filters=HpDate%3a%2220260301_1830%22",
+      "hsh": "e999513c2e84eaf417163a055a6a2ff2",
+      "created_time": "2026-03-02"
+    },
     {
       "id": 1401,
       "title": "Ambassadors of cuteness",
