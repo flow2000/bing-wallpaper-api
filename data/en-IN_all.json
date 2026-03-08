@@ -1,8 +1,18 @@
 {
   "code": 200,
   "msg": "操作成功",
-  "total": 1407,
+  "total": 1408,
   "data": [
+    {
+      "id": 1408,
+      "title": "Geometry of glory",
+      "url": "https://bing.com/th?id=OHR.AkbarAgra_EN-IN0901638109_1920x1080.jpg",
+      "datetime": "2026-03-08",
+      "copyright": "Akbar's tomb, Agra, Uttar Pradesh (© zeelichsheng/Shutterstock)",
+      "copyrightlink": "https://www.bing.com/search?q=Akbars+tomb&form=hpcapt&filters=HpDate%3a%2220260307_1830%22",
+      "hsh": "6a2010c10e2fa9f580954557e77c738a",
+      "created_time": "2026-03-08"
+    },
     {
       "id": 1407,
       "title": "Songs beneath the waves",
