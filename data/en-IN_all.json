@@ -1,8 +1,18 @@
 {
   "code": 200,
   "msg": "操作成功",
-  "total": 1493,
+  "total": 1494,
   "data": [
+    {
+      "id": 1494,
+      "title": "Making a state-ment",
+      "url": "https://bing.com/th?id=OHR.TelanganaDay2026_EN-IN2729505086_1920x1080.jpg",
+      "datetime": "2026-06-02",
+      "copyright": "Minarets of Charminar, Hyderabad, Telangana (© RAJARSHI SENGUPTA/iStock/Getty Images)",
+      "copyrightlink": "https://www.bing.com/search?q=Telangana+Day&form=hpcapt&filters=HpDate%3a%2220260601_1830%22",
+      "hsh": "32713523900cef07b10507e53a312655",
+      "created_time": "2026-06-02"
+    },
     {
       "id": 1493,
       "title": "Flavours of history",
