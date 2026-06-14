@@ -1,8 +1,18 @@
 {
   "code": 200,
   "msg": "操作成功",
-  "total": 1505,
+  "total": 1506,
   "data": [
+    {
+      "id": 1506,
+      "title": "C’est la danse des canards",
+      "url": "https://bing.com/th?id=OHR.DuckPond_FR-FR7676171535_1920x1080.jpg",
+      "datetime": "2026-06-14",
+      "copyright": "Canard colvert (© Philippe Paternolli/Getty Images)",
+      "copyrightlink": "https://www.bing.com/search?q=canard+colvert&form=hpcapt&filters=HpDate%3a%2220260613_2200%22",
+      "hsh": "7f195d663df6bbb5f122b263c29ca020",
+      "created_time": "2026-06-14"
+    },
     {
       "id": 1505,
       "title": "Au fil du temps",
