@@ -1,8 +1,18 @@
 {
   "code": 200,
   "msg": "操作成功",
-  "total": 1523,
+  "total": 1524,
   "data": [
+    {
+      "id": 1524,
+      "title": "Dans l'univers sacré d'Esna",
+      "url": "https://bing.com/th?id=OHR.TempleEsna_FR-FR7122811032_1920x1080.jpg",
+      "datetime": "2026-07-02",
+      "copyright": "Plafond du temple d'Esna, Égypte (© Nick Brundle Photography/Getty Images)",
+      "copyrightlink": "https://www.bing.com/search?q=Temple+Khnoum+Esna+Egypte&form=hpcapt&filters=HpDate%3a%2220260701_2200%22",
+      "hsh": "88258a0dbc8b9e34a0de243d53049119",
+      "created_time": "2026-07-02"
+    },
     {
       "id": 1523,
       "title": "Le Canada, sculpté par l'Atlantique",
