@@ -1,8 +1,18 @@
 {
   "code": 200,
   "msg": "操作成功",
-  "total": 1557,
+  "total": 1558,
   "data": [
+    {
+      "id": 1558,
+      "title": "Gates of a hidden kingdom",
+      "url": "https://bing.com/th?id=OHR.FezMorocco_EN-CA4182192708_1920x1080.jpg",
+      "datetime": "2026-08-06",
+      "copyright": "Decorated gate of the Royal Palace of Fez, Morocco (© cgst26/Shutterstock)",
+      "copyrightlink": "https://www.bing.com/search?q=Royal+Palace+of+Fez&form=hpcapt&filters=HpDate%3a%2220260805_0400%22",
+      "hsh": "f00c92e3e63d12574489a7daff1a41bf",
+      "created_time": "2026-08-06"
+    },
     {
       "id": 1557,
       "title": "Hoot hoot hooray!",
