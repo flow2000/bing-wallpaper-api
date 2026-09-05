@@ -1,8 +1,18 @@
 {
   "code": 200,
   "msg": "操作成功",
-  "total": 1588,
+  "total": 1589,
   "data": [
+    {
+      "id": 1589,
+      "title": "Where Mughal echoes linger",
+      "url": "https://bing.com/th?id=OHR.PuranaQila2026_EN-IN6620233403_1920x1080.jpg",
+      "datetime": "2026-09-05",
+      "copyright": "Khairul Manazil, New Delhi (© SoumenNath/E+/Getty Images)",
+      "copyrightlink": "https://www.bing.com/search?q=Khairul+Manazil&form=hpcapt&filters=HpDate%3a%2220260904_1830%22",
+      "hsh": "d9ec20106de564e6c91086f3fcde49da",
+      "created_time": "2026-09-05"
+    },
     {
       "id": 1588,
       "title": "Red and white on the horizon",
