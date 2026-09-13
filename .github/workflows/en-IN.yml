@@ -1,29 +1,34 @@
 permissions:
   contents: write
-name: update-bing-walpaper
+name: update-bing-wallpaper-en-IN
 
 on:
-  push:
-    branches:
-     - master
   schedule:
-   - cron: '30 0 * * *'
+    # 每天印度标准时间 00:02（cron 按 timezone 指定的 IANA 时区解释）
+    - cron: '2 0 * * *'
+      timezone: Asia/Kolkata
+  workflow_dispatch:
   repository_dispatch:
     types:
-      - webhook
+      - webhook-en-IN
 
 env:
   STORAGE_TYPE: mongodb
+  BING_MKT: en-IN
   # mongodb配置
   MONGODB_URI: ${{ secrets.MONGODB_URI }}
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    # 所有分地区任务共用同一并发组，串行推送 master，避免互相覆盖
+    concurrency:
+      group: bing-wallpaper-update
+      cancel-in-progress: false
     steps:
      - name: Checkout
-       uses: actions/checkout@master
-    
+       uses: actions/checkout@v4
+
      - name: Set up Python
        uses: actions/setup-python@v5
        with:
@@ -35,28 +40,23 @@ jobs:
        run: |
          pip install --upgrade pip 'pip<24.1'
          pip install -r requirements.txt
-         pip install tencentcloud-sdk-python
-         pip install tencentcloud-sdk-python-cdn   
- 
+
      - name: mongodb Update bing
-       if: ${{ env.STORAGE_TYPE == 'mongodb' }}  
+       if: ${{ env.STORAGE_TYPE == 'mongodb' }}
        env:
+        BING_MKT: en-IN
         MONGODB_URI: ${{ secrets.MONGODB_URI }}
        working-directory: ./
        run: |
          python bing_wallpaper_api/run.py
          python bing_wallpaper_api/run_fix_last_day.py
-         
+
      - name: Commit json Files
        run: |
-         sh commit.sh
+         sh commit.sh ${BING_MKT}
 
      - name: Push changes
        uses:  ad-m/github-push-action@master
        with:
          github_token: ${{ secrets.GITHUB_TOKEN }}
          branch: master
-
-     #- name: Refresh CDN #没有使用腾讯云cdn可删除该步骤
-     #  run: |
-     #    python cdn.py ${{ secrets.TENCENT_SECRETID }} ${{ secrets.TENCENT_SECRETKEY }} ${{ secrets.CDN_URL }} 

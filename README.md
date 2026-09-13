@@ -10,9 +10,11 @@
 
 ​		于是便有了本项目的诞生。本项目借助python实现：
 
-​		1、服务端获取2016-至今的壁纸接口数据，并存储到Mongodb
+​		1、服务端获取必应壁纸接口数据，存储到本地 JSON 文件（`data/<mkt>_all.json`）
 
 ​		2、提供json接口和图片接口
+
+> **v3.0.0 更新说明**：数据来源由 MongoDB 改为本地 JSON 文件，部署无需再配置数据库。`data/*.json` 由 GitHub Actions 每日自动拉取并提交更新。
 
 ### 壁纸资源
 
@@ -62,6 +64,7 @@ https://api.bimg.cc/all?page=1&order=asc&limit=10&w=1920&h=1080&mkt=zh-CN
 |   h    |  `Int`   |    否    |       图片高度，默认1080        |
 | order  | `string` |    否    | 排序，默认降序`desc`，升序`asc` |
 |  mkt   | `String` |    否    |         地区，默认zh-CN         |
+|  year  |  `Int`   |    否    |   年份过滤，要求年份>=2016      |
 
 ```markdown
 // 已知分辨率
@@ -108,31 +111,70 @@ https://api.bimg.cc/total?mkt=zh-CN
 
 ### 部署
 
+> **数据来源说明**：`/random`、`/all`、`/total` 接口读取项目根目录下 `data/<mkt>_all.json` 本地数据文件；`/today` 接口实时请求必应官方接口。`data/*.json` 由 GitHub Actions（`.github/workflows/matser.yml`）每日定时拉取必应最新壁纸并提交更新，无需手动维护。
+
+#### Linux 本地部署
+
+1、安装 Python 3.8+
+
+2、（可选）拉取最新壁纸数据：
+```shell
+python bing_wallpaper_api/run.py
+python bing_wallpaper_api/run_fix_last_day.py
+```
+
+3、使用项目根目录下的启动脚本一键启动（自动检查并安装依赖）：
+```shell
+chmod +x start.sh
+./start.sh
+```
+脚本默认监听 `8888` 端口，可通过环境变量自定义：
+```shell
+PORT=9127 ./start.sh
+```
+
+4、访问 `http://服务器IP:8888` 即可使用，接口文档地址 `http://服务器IP:8888/docs`
+
+5、（可选）后台运行：
+```shell
+nohup ./start.sh > bing-api.log 2>&1 &
+```
+
 #### vercel部署
 
-1、在 [MongoDB](https://www.mongodb.com/cloud/atlas/register) 申请 MongoDB 帐号，具体可查看我的博客教程：[如何申请一个永久免费的 Mongodb 数据库 - 详细版](https://blog.aqcoder.cn/posts/b267/)
+1、在[Vercel](https://vercel.com/signup)申请 Vercel帐号
 
-2、在[Vercel](https://vercel.com/signup)申请 Vercel帐号
+2、点击部署<a href="https://vercel.com/import/project?template=https://github.com/flow2000/bing-wallpaper-api/tree/master" target="_blank" rel="noopener noreferrer"><img src="https://vercel.com/button" alt="vercel deploy"></a>
 
-3、创建数据库用户名和密码，在IPAccess List添加`0.0.0.0`（代表允许所有 IP 地址的连接），在 Clusters 页面点击 CONNECT，选择第二个：Connect your application，并记录数据库连接字符串，请将连接字符串中的 `user`修改为数据库用户，`<password>` 修改为数据库密码
+3、进入 Overview，点击 Domains 下方的链接，添加一个子域名，并在域名解析添加一个`CNAME`解析：`cname.vercel-dns.com.`，等待刷新完成即可获得一个`https`的接口
 
-3、点击部署<a href="https://vercel.com/import/project?template=https://github.com/flow2000/bing-wallpaper-api/tree/master" target="_blank" rel="noopener noreferrer"><img src="https://vercel.com/button" alt="vercel deploy"></a>
+> 注意：Vercel 部署不再需要配置任何环境变量（无需 MongoDB）。
 
-4、进入 Settings - Environment Variables，添加环境变量 `MONGODB_URI`，值为第 3 步的数据库连接字符串
+#### netlify部署
 
-5、进入 Overview，点击 Domains 下方的链接，添加一个子域名，并在域名解析添加一个`CNAME`解析：`cname.vercel-dns.com.`，等待刷新完成即可获得一个`https`的接口
+> 由于 Netlify Functions 不支持 Python 运行时，本项目使用 JavaScript 函数实现，直接读取本地 `data/*.json` 数据。
+
+1、在 [Netlify](https://app.netlify.com/signup) 申请 Netlify 帐号
+
+2、将本项目 Fork 到你的 GitHub，然后在 Netlify 中点击 "Add new site" → "Import an existing project"，选择 Fork 后的仓库
+
+3、构建设置保持默认即可（`netlify.toml` 已配置好），点击 "Deploy site"
+
+4、部署完成后，点击 Site overview 中的链接即可访问 API，接口路径与 Vercel 部署一致（`/today`、`/random`、`/all`、`/total`）
+
+> 注意：Netlify 部署不再需要配置任何环境变量（无需 MongoDB）。
 
 #### docker部署
 
 ```shell
-docker run -itd --name bimg --restart=always --env MONGODB_URI=<url> -p 9127:8888 flow2000/bimg
+docker run -itd --name bimg --restart=always -p 9127:8888 flow2000/bimg
 ```
 
-`MONGODB_URI`：存储方式为mongodb时的环境变量
+> v4.0.0 起 Docker 部署不再需要 `MONGODB_URI` 环境变量。
 
 ### 未来计划
 
-- [x] 补充前端展示必应壁纸 [必应壁纸 | 每天都有不一样的心情](https://bimg.cc/)
+- [√] 补充前端展示必应壁纸 [必应壁纸 | 每天都有不一样的心情](https://bimg.cc/)
 
 - [x] 使用本地部署，加快api速度 https://api.bimg.cc/
 

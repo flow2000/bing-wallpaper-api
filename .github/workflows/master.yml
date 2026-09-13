@@ -1,0 +1,60 @@
+permissions:
+  contents: write
+name: update-bing-walpaper
+
+on:
+  push:
+    branches:
+     - master
+  # 定时任务已按地区拆分到同目录下的 <地区>.yml，统一在各时区凌晨 00:02 触发
+  workflow_dispatch:
+  repository_dispatch:
+    types:
+      - webhook
+
+env:
+  STORAGE_TYPE: mongodb
+  # mongodb配置
+  MONGODB_URI: ${{ secrets.MONGODB_URI }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # 与分地区任务共用同一并发组，串行推送 master，避免互相覆盖
+    concurrency:
+      group: bing-wallpaper-update
+      cancel-in-progress: false
+    steps:
+     - name: Checkout
+       uses: actions/checkout@master
+    
+     - name: Set up Python
+       uses: actions/setup-python@v5
+       with:
+        cache: 'pip'
+        python-version: 3.9.12
+
+     - name: Install Requirements
+       working-directory: ./bing_wallpaper_api
+       run: |
+         pip install --upgrade pip 'pip<24.1'
+         pip install -r requirements.txt
+ 
+     - name: mongodb Update bing
+       if: ${{ env.STORAGE_TYPE == 'mongodb' }}  
+       env:
+        MONGODB_URI: ${{ secrets.MONGODB_URI }}
+       working-directory: ./
+       run: |
+         python bing_wallpaper_api/run.py
+         python bing_wallpaper_api/run_fix_last_day.py
+         
+     - name: Commit json Files
+       run: |
+         sh commit.sh
+
+     - name: Push changes
+       uses:  ad-m/github-push-action@master
+       with:
+         github_token: ${{ secrets.GITHUB_TOKEN }}
+         branch: master
