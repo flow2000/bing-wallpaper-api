@@ -1,0 +1,22 @@
+
+
+# CI/CD 配置
+.github/
+
+# Docker 相关
+Dockerfile
+
+# 数据同步脚本（仅在 GitHub Actions 中使用）
+bing_wallpaper_api/run.py
+bing_wallpaper_api/run_fix_last_day.py
+bing_wallpaper_api/requirements.txt
+
+# 其他脚本
+cdn.py
+commit.sh
+
+# Vercel 配置（Netlify 不需要）
+vercel.json
+
+# 文档
+*.md
