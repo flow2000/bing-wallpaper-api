@@ -4,6 +4,9 @@
   # 发布目录（本项目为纯 API，无需静态站点）
   publish = "."
 
+  [build.environment]
+  PYTHON_VERSION = "3.12"
+
 # 将数据文件和图标打包进函数，供 JS 函数读取本地 JSON 数据
 [functions]
   included_files = ["data/*.json", "favicon.ico"]
