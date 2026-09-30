@@ -1,4 +1,4 @@
-# -*- coding:utf-8 -*-
+﻿# -*- coding:utf-8 -*-
 # @Author: flow2000
 import requests
 import json
@@ -46,7 +46,7 @@ app.add_middleware(
 )
 
 @app.get("/",tags=["API"], summary="返回部署成功信息")
-@limiter.limit("10/minute")  # 每分钟最多10个请求
+@limiter.limit("100/minute")  # 每分钟最多10个请求
 async def index(request: Request):
     '''
     响应字段说明：
@@ -87,7 +87,7 @@ async def fetch(session, url):
         return await response.text()
 
 @app.get("/favicon.ico",tags=["INFO"], summary="返回图标")
-@limiter.limit("10/minute")  # 每分钟最多10个请求
+@limiter.limit("100/minute")  # 每分钟最多10个请求
 async def favicon(request: Request):
     '''
     - 返回图标
@@ -95,7 +95,7 @@ async def favicon(request: Request):
     return StreamingResponse(open('favicon.ico', mode="rb"), media_type="image/jpg")
 
 @app.get("/today",tags=["API"], summary="返回今日壁纸")
-@limiter.limit("10/minute")  # 每分钟最多10个请求
+@limiter.limit("100/minute")  # 每分钟最多10个请求
 async def latest(request: Request, w: str = "1920", h: str = "1080", uhd: bool = False, mkt: str = "zh-CN"):
     '''
     请求字段说明：
@@ -107,7 +107,7 @@ async def latest(request: Request, w: str = "1920", h: str = "1080", uhd: bool =
     return latest_one(w,h,uhd,mkt)
 
 @app.get("/random",tags=["API"], summary="返回随机壁纸")
-@limiter.limit("10/minute")  # 每分钟最多10个请求
+@limiter.limit("100/minute")  # 每分钟最多10个请求
 async def random(request: Request, w: str = "1920", h: str = "1080", uhd: bool = False, mkt: str = "zh-CN"):
     '''
     请求字段说明：
@@ -119,7 +119,7 @@ async def random(request: Request, w: str = "1920", h: str = "1080", uhd: bool =
     return random_one(w,h,uhd,mkt)
 
 @app.get("/all",tags=["API"], summary="返回分页数据")
-@limiter.limit("10/minute")  # 每分钟最多10个请求
+@limiter.limit("100/minute")  # 每分钟最多10个请求
 async def all(request: Request, page: int = 1, limit: int = 10, order: str="desc", year: int = None, w: int = 1920, h: int = 1080, uhd: bool = False, mkt: str = "zh-CN"):
     '''
     请求字段说明：
@@ -146,7 +146,7 @@ async def all(request: Request, page: int = 1, limit: int = 10, order: str="desc
     return query_all(page,limit,order,w,h,uhd,mkt,year)
 
 @app.get("/total",tags=["API"], summary="返回数据总数")
-@limiter.limit("10/minute")  # 每分钟最多10个请求
+@limiter.limit("100/minute")  # 每分钟最多10个请求
 async def total(request: Request, mkt: str = "zh-CN"):
     '''
     请求字段说明：
