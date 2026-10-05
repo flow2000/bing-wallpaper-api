@@ -213,6 +213,10 @@ exports.handler = async (event) => {
   try {
     // 路由：/  - 返回部署成功信息与当前版本
     if (route === "/") {
+      // HEAD 请求：只返回响应头，不返回 body（供 Vercel/Netlify 部署探活使用）
+      if (event.httpMethod === "HEAD") {
+        return { statusCode: 200, headers: JSON_HEADERS, body: "" };
+      }
       return json(200, success("BingAPI 部署成功，详情可查看文档：https://api-bimg-cc.apifox.cn", { current_version: VERSION }));
     }
 

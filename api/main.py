@@ -45,7 +45,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/",tags=["API"], summary="返回部署成功信息")
+@app.api_route("/", methods=["GET", "HEAD"], tags=["API"], summary="返回部署成功信息")
 @limiter.limit("100/minute")  # 每分钟最多10个请求
 async def index(request: Request):
     '''
