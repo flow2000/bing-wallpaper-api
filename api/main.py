@@ -1,4 +1,4 @@
-﻿# -*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 # @Author: flow2000
 import requests
 import json
@@ -9,6 +9,7 @@ import os
 from fastapi import FastAPI, Request
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.base import BaseHTTPMiddleware
 import uvicorn
 import asyncio
 import aiohttp
@@ -44,6 +45,28 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# CDN 缓存策略：按路由设置 Cache-Control，兼顾浏览器缓存(max-age)与 CDN 共享缓存(s-maxage)。
+# - /today、/all、/total、/：数据每日更新，缓存 1 小时
+# - /favicon.ico：静态资源，长期缓存 1 年
+# - /random：随机壁纸，禁止缓存（每次请求必须返回不同结果）
+class CacheControlMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request, call_next):
+        response = await call_next(request)
+        path = request.url.path
+        if path == "/favicon.ico":
+            response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
+        elif path == "/random":
+            response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate"
+        elif path in ("/", "/today", "/all", "/total"):
+            response.headers["Cache-Control"] = "public, max-age=3600, s-maxage=3600"
+            # Vercel 专用 CDN 缓存头，仅作用于边缘 CDN，不影响浏览器
+            response.headers["CDN-Cache-Control"] = "public, s-maxage=3600"
+        else:
+            response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate"
+        return response
+
+app.add_middleware(CacheControlMiddleware)
 
 @app.api_route("/", methods=["GET", "HEAD"], tags=["API"], summary="返回部署成功信息")
 @limiter.limit("100/minute")  # 每分钟最多10个请求

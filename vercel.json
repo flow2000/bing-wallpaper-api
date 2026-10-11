@@ -2,9 +2,61 @@
     "version": 2,
     "routes": [
         {
+            "src": "/favicon.ico",
+            "headers": {
+                "Cache-Control": "public, max-age=31536000, immutable",
+                "Access-Control-Allow-Origin": "*"
+            },
+            "dest": "api/main.py"
+        },
+        {
+            "src": "/today",
+            "headers": {
+                "Cache-Control": "public, max-age=3600, s-maxage=3600",
+                "CDN-Cache-Control": "public, s-maxage=3600",
+                "Access-Control-Allow-Origin": "*"
+            },
+            "dest": "api/main.py"
+        },
+        {
+            "src": "/random",
+            "headers": {
+                "Cache-Control": "no-store, no-cache, must-revalidate",
+                "Access-Control-Allow-Origin": "*"
+            },
+            "dest": "api/main.py"
+        },
+        {
+            "src": "/all",
+            "headers": {
+                "Cache-Control": "public, max-age=3600, s-maxage=3600",
+                "CDN-Cache-Control": "public, s-maxage=3600",
+                "Access-Control-Allow-Origin": "*"
+            },
+            "dest": "api/main.py"
+        },
+        {
+            "src": "/total",
+            "headers": {
+                "Cache-Control": "public, max-age=3600, s-maxage=3600",
+                "CDN-Cache-Control": "public, s-maxage=3600",
+                "Access-Control-Allow-Origin": "*"
+            },
+            "dest": "api/main.py"
+        },
+        {
+            "src": "/",
+            "headers": {
+                "Cache-Control": "public, max-age=3600, s-maxage=3600",
+                "CDN-Cache-Control": "public, s-maxage=3600",
+                "Access-Control-Allow-Origin": "*"
+            },
+            "dest": "api/main.py"
+        },
+        {
             "src": "/.*",
             "headers": {
-                "cache-control": "no-cache, no-store, must-revalidate",
+                "cache-control": "no-store, no-cache, must-revalidate",
                 "Access-Control-Allow-Origin": "*"
             },
             "dest": "api/main.py"
