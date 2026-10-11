@@ -17,3 +17,37 @@
   to = "/.netlify/functions/api"
   status = 200
   force = true
+
+# CDN 缓存策略：按路径设置 Cache-Control 头（函数响应头优先，此处作为兜底）
+# - /today、/all、/total、/：数据每日更新，缓存 1 小时
+# - /favicon.ico：静态资源，缓存 1 年
+# - /random：随机壁纸，禁止缓存
+[[headers]]
+  for = "/today"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, s-maxage=3600"
+
+[[headers]]
+  for = "/all"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, s-maxage=3600"
+
+[[headers]]
+  for = "/total"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, s-maxage=3600"
+
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, s-maxage=3600"
+
+[[headers]]
+  for = "/favicon.ico"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/random"
+  [headers.values]
+    Cache-Control = "no-store, no-cache, must-revalidate"

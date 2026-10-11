@@ -44,11 +44,18 @@ const YEAR_LIMIT = 366;
 // 普通查询时单页最大返回条数
 const LIMIT_DATA = 100;
 
-// JSON 接口统一响应头：声明内容类型、允许跨域、禁止缓存
-const JSON_HEADERS = {
+// ---------- CDN 缓存策略 ----------
+// 每日更新的数据（/today、/all、/total、/）：缓存 1 小时
+const CACHE_DAILY = "public, max-age=3600, s-maxage=3600";
+// 静态资源（/favicon.ico）：缓存 1 年且不可变
+const CACHE_STATIC = "public, max-age=31536000, immutable";
+// 随机接口（/random）及错误响应：禁止缓存
+const CACHE_NONE = "no-store, no-cache, must-revalidate";
+
+// JSON 接口基础响应头：声明内容类型、允许跨域（缓存头按路由动态追加）
+const BASE_HEADERS = {
   "Content-Type": "application/json; charset=utf-8",
   "Access-Control-Allow-Origin": "*",
-  "Cache-Control": "no-cache, no-store, must-revalidate",
 };
 
 /**
@@ -87,23 +94,25 @@ function error(msg) {
  * 包装为 Netlify Functions 要求的返回对象（JSON 响应）
  * @param {number} statusCode - HTTP 状态码
  * @param {object} body - 响应体对象，会被 JSON 序列化
+ * @param {string} [cacheControl=CACHE_NONE] - Cache-Control 头值，默认禁止缓存
  * @returns {{statusCode:number, headers:object, body:string}}
  */
-function json(statusCode, body) {
-  return { statusCode: statusCode, headers: JSON_HEADERS, body: JSON.stringify(body) };
+function json(statusCode, body, cacheControl) {
+  const headers = Object.assign({}, BASE_HEADERS);
+  headers["Cache-Control"] = cacheControl || CACHE_NONE;
+  return { statusCode: statusCode, headers: headers, body: JSON.stringify(body) };
 }
 
 /**
  * 构造 302 重定向响应（/today 和 /random 接口使用）
  * @param {string} url - 目标跳转地址
+ * @param {string} [cacheControl=CACHE_NONE] - Cache-Control 头值，默认禁止缓存
  * @returns {{statusCode:number, headers:object, body:string}}
  */
-function redirect(url) {
-  return {
-    statusCode: 302,
-    headers: { Location: url, "Access-Control-Allow-Origin": "*" },
-    body: "",
-  };
+function redirect(url, cacheControl) {
+  const headers = { Location: url, "Access-Control-Allow-Origin": "*" };
+  headers["Cache-Control"] = cacheControl || CACHE_NONE;
+  return { statusCode: 302, headers: headers, body: "" };
 }
 
 /* ---------- 工具函数 ---------- */
@@ -215,9 +224,11 @@ exports.handler = async (event) => {
     if (route === "/") {
       // HEAD 请求：只返回响应头，不返回 body（供 Vercel/Netlify 部署探活使用）
       if (event.httpMethod === "HEAD") {
-        return { statusCode: 200, headers: JSON_HEADERS, body: "" };
+        const headers = Object.assign({}, BASE_HEADERS);
+        headers["Cache-Control"] = CACHE_DAILY;
+        return { statusCode: 200, headers: headers, body: "" };
       }
-      return json(200, success("BingAPI 部署成功，详情可查看文档：https://api-bimg-cc.apifox.cn", { current_version: VERSION }));
+      return json(200, success("BingAPI 部署成功，详情可查看文档：https://api-bimg-cc.apifox.cn", { current_version: VERSION }), CACHE_DAILY);
     }
 
     // 路由：/favicon.ico - 返回网站图标（以 base64 编码二进制）
@@ -227,7 +238,7 @@ exports.handler = async (event) => {
       return {
         statusCode: 200,
         isBase64Encoded: true,
-        headers: { "Content-Type": "image/jpeg", "Cache-Control": "no-cache" },
+        headers: { "Content-Type": "image/jpeg", "Cache-Control": CACHE_STATIC },
         body: buf.toString("base64"),
       };
     }
@@ -239,7 +250,7 @@ exports.handler = async (event) => {
       const data = await res.json();
       // 拼接完整 URL，并去除必应返回的额外参数，只保留图片地址
       const url = BINGURL + data.images[0].url.replace("&rf=LaDigue_1920x1080.jpg&pid=hp", "");
-      return redirect(replaceResolution(url, getWh(q)));
+      return redirect(replaceResolution(url, getWh(q)), CACHE_DAILY);
     }
 
     // 路由：/random - 随机壁纸，从本地 JSON 数据中随机取一条并重定向
@@ -249,9 +260,9 @@ exports.handler = async (event) => {
       if (raw === null || !raw.data || raw.data.length === 0) {
         return json(200, error("暂无数据"));
       }
-      // 从数据数组中随机选取一条
+      // 从数据数组中随机选取一条（必须禁止缓存，保证每次请求结果不同）
       const item = raw.data[Math.floor(Math.random() * raw.data.length)];
-      return redirect(replaceResolution(item.url, getWh(q)));
+      return redirect(replaceResolution(item.url, getWh(q)), CACHE_NONE);
     }
 
     // 路由：/all - 分页查询壁纸 JSON 数据
@@ -295,7 +306,7 @@ exports.handler = async (event) => {
         copy.url = replaceResolution(item.url, wh);
         return copy;
       });
-      return json(200, tableSuccess(data, total));
+      return json(200, tableSuccess(data, total), CACHE_DAILY);
     }
 
     // 路由：/total - 返回指定地区的数据总条数
@@ -304,7 +315,7 @@ exports.handler = async (event) => {
       if (!LOCATIONS.includes(mkt)) return json(200, error("请求参数错误"));
       const raw = readJson(mkt);
       if (raw === null) return json(200, error("数据文件不存在"));
-      return json(200, success("操作成功", raw.data ? raw.data.length : 0));
+      return json(200, success("操作成功", raw.data ? raw.data.length : 0), CACHE_DAILY);
     }
 
     // 未匹配到任何路由，返回 404
