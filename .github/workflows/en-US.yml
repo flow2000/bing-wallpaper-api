@@ -57,7 +57,12 @@ jobs:
          sh commit.sh ${BING_MKT}
 
      - name: Push changes
-       uses:  ad-m/github-push-action@master
-       with:
-         github_token: ${{ secrets.GITHUB_TOKEN }}
-         branch: master
+       # 原生 git push 带退避重试：远端临时拒绝（如二次限流 commit_refs）时自动重试
+       run: |
+         for i in 1 2 3; do
+           git push origin master && exit 0
+           echo "push failed, retry in $((i*30))s"
+           sleep $((i*30))
+           git pull --rebase origin master
+         done
+         exit 1
