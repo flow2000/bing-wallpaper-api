@@ -6,7 +6,7 @@ on:
   push:
     branches:
      - master
-  # 定时任务已按地区拆分到同目录下的 <地区>.yml，统一在各时区凌晨 00:02 触发
+  # 定时任务已按地区拆分到同目录下的 <地区>.yml，在各时区凌晨错峰触发（分钟依次错开，避免触发 GitHub 限流）
   workflow_dispatch:
   repository_dispatch:
     types:

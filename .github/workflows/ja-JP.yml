@@ -4,8 +4,8 @@ name: update-bing-wallpaper-ja-JP
 
 on:
   schedule:
-    # 每天东京时间 00:02（cron 按 timezone 指定的 IANA 时区解释）
-    - cron: '2 0 * * *'
+    # 每天东京时间 00:08（cron 按 timezone 指定的 IANA 时区解释；各地区分钟错峰，避免集中触发限流）
+    - cron: '8 0 * * *'
       timezone: Asia/Tokyo
   workflow_dispatch:
   repository_dispatch:

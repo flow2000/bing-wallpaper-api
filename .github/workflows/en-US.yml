@@ -4,9 +4,9 @@ name: update-bing-wallpaper-en-US
 
 on:
   schedule:
-    # 每天美国太平洋时间 00:02（Bing 每日壁纸按太平洋时间刷新，故 en-US 取洛杉矶时区）
-    # cron 按 timezone 指定的 IANA 时区解释，冬/夏令时自动切换
-    - cron: '2 0 * * *'
+    # 每天美国太平洋时间 00:50（Bing 每日壁纸按太平洋时间刷新，故 en-US 取洛杉矶时区）
+    # cron 按 timezone 指定的 IANA 时区解释，冬/夏令时自动切换；各地区分钟错峰，避免集中触发限流
+    - cron: '50 0 * * *'
       timezone: America/Los_Angeles
   workflow_dispatch:
   repository_dispatch:
