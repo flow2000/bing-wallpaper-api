@@ -4,8 +4,8 @@ name: update-bing-wallpaper-en-IN
 
 on:
   schedule:
-    # 每天印度标准时间 00:02（cron 按 timezone 指定的 IANA 时区解释）
-    - cron: '2 0 * * *'
+    # 每天印度标准时间 00:14（cron 按 timezone 指定的 IANA 时区解释；各地区分钟错峰，避免集中触发限流）
+    - cron: '14 0 * * *'
       timezone: Asia/Kolkata
   workflow_dispatch:
   repository_dispatch:

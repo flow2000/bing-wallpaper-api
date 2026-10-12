@@ -4,8 +4,8 @@ name: update-bing-wallpaper-de-DE
 
 on:
   schedule:
-    # 每天柏林时间 00:02（cron 按 timezone 指定的 IANA 时区解释，冬/夏令时自动切换）
-    - cron: '2 0 * * *'
+    # 每天柏林时间 00:20（cron 按 timezone 指定的 IANA 时区解释，冬/夏令时自动切换；各地区分钟错峰，避免集中触发限流）
+    - cron: '20 0 * * *'
       timezone: Europe/Berlin
   workflow_dispatch:
   repository_dispatch:
