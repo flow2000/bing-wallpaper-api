@@ -1,0 +1,17 @@
+#:schema node_modules/wrangler/config-schema.json
+# Cloudflare Workers 配置：Bing Wallpaper API
+name = "bing-wallpaper-api"
+main = "workers/api.js"
+compatibility_date = "2025-01-01"
+workers_dev = true
+
+# 将 .ico 文件作为 Data 模块打包（/favicon.ico 路由以 ArrayBuffer 形式引用）
+rules = [
+  { type = "Data", globs = ["**/*.ico"] }
+]
+
+# 数据文件基准地址：Worker 运行时从该地址拉取 <mkt>_all.json（边缘缓存 1 小时）
+# Fork 部署时改为自己的仓库地址，分支需包含 data/*.json：
+# DATA_BASE = "https://raw.githubusercontent.com/<你的用户名>/bing-wallpaper-api/master/data"
+[vars]
+DATA_BASE = "https://raw.githubusercontent.com/flow2000/bing-wallpaper-api/master/data"
