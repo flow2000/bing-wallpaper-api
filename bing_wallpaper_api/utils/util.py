@@ -3,18 +3,18 @@ import json
 import time
 import os
 import sys
-from datetime import datetime
+from datetime import datetime, timedelta
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
 import settings
 
-# 必应接口返回结构异常（非合法 JSON、images 为空、缺少 enddate 等必需字段）时抛出，
+# 必应接口返回结构异常（非合法 JSON、images 为空、缺少 fullstartdate 等必需字段）时抛出，
 # 由调用方按地区捕获并跳过本次抓取；不回退为本地日期，避免给壁纸打上错误日期写入脏数据
 class BingResponseError(ValueError):
     pass
 
-# 构造壁纸记录必需的字段（enddate 对应壁纸所属的当地日期）
-IMAGE_REQUIRED_FIELDS = ("enddate", "title", "url", "copyright", "copyrightlink", "hsh")
+# 构造壁纸记录必需的字段（fullstartdate 用于换算壁纸所属的当地日期）
+IMAGE_REQUIRED_FIELDS = ("fullstartdate", "title", "url", "copyright", "copyrightlink", "hsh")
 
 def _preview(payload):
     try:
@@ -37,22 +37,25 @@ def _first_image(bing_json_data):
         raise BingResponseError("必应接口返回缺少字段 %s：%s" % (missing, _preview(bing_json_data)))
     return image
 
-# 以必应接口返回的 enddate（YYYYMMDD，对应壁纸所属的当地日期）为准，
+# 壁纸所属的当地日期：fullstartdate 是壁纸上线的 UTC 时刻（= 当地午夜），其小时部分编码了市场时区偏移。
+# UTC+ 市场的午夜落在 UTC 前一天下午/晚间（小时>=12），UTC- 市场落在 UTC 当天上午（小时<12），
+# 因此 +12 小时后取日期即得当地日期。对全部市场（UTC-8 ~ UTC+9）及夏令时切换均成立，
+# 且不依赖时区数据库，兼容 Python 3.8。不能用 enddate（UTC 日期）：UTC- 市场会多记一天
+def to_local_date(fullstartdate):
+    try:
+        return (datetime.strptime(fullstartdate, "%Y%m%d%H%M") + timedelta(hours=12)).strftime("%Y-%m-%d")
+    except ValueError as e:
+        raise BingResponseError("必应接口返回的 fullstartdate 格式异常：%r" % fullstartdate) from e
+
+# 以必应接口返回的 fullstartdate 换算出的当地日期为准，
 # 不能用 runner 本地日期：分地区任务在各时区凌晨触发时，UTC 可能仍停留在前一天
 def parse_bing_date(bing_json_data):
-    enddate = _first_image(bing_json_data)["enddate"]
-    try:
-        return datetime.strptime(enddate, "%Y%m%d").strftime("%Y-%m-%d")
-    except ValueError as e:
-        raise BingResponseError("必应接口返回的 enddate 格式异常：%r" % enddate) from e
+    return to_local_date(_first_image(bing_json_data)["fullstartdate"])
 
 # 构造必应壁纸信息数据
 def build_json_data(id, bing_json_data):
     image = _first_image(bing_json_data)
-    try:
-        bing_date = datetime.strptime(image["enddate"], "%Y%m%d").strftime("%Y-%m-%d")
-    except ValueError as e:
-        raise BingResponseError("必应接口返回的 enddate 格式异常：%r" % image["enddate"]) from e
+    bing_date = to_local_date(image["fullstartdate"])
     json_data={}
     json_data['id']=id+1
     json_data['title']=image['title']

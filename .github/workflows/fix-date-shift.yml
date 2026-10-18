@@ -1,0 +1,47 @@
+name: Fix en-US/en-CA Date Shift
+
+# 一次性迁移：修正 en-US/en-CA 历史壁纸日期（UTC 偏移 +1 天），同时修正 MongoDB 与 JSON 文件
+# 使用：Actions → Fix en-US/en-CA Date Shift → Run workflow（在 master 分支上运行一次即可）
+# 脚本幂等：已修正的记录不会被重复移动，误重复运行无副作用；迁移完成并确认后可删除本文件
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  MONGODB_URI: ${{ secrets.MONGODB_URI }}
+
+jobs:
+  fix-date-shift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: pip install pymongo
+
+      - name: Run migration
+        run: python bing_wallpaper_api/fix_date_shift.py
+
+      - name: Commit json changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/en-US_all.json data/en-CA_all.json
+          git diff --staged --quiet || git commit -m "fix: 修正 en-US/en-CA 历史壁纸日期（UTC 偏移 +1 天）"
+
+      - name: Push changes
+        run: |
+          for i in 1 2 3; do
+            git push origin master && exit 0
+            echo "push failed, retry in $((i*30))s"
+            sleep $((i*30))
+            git pull --rebase origin master
+          done
+          exit 1

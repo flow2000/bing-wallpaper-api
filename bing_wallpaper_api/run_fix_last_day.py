@@ -55,7 +55,7 @@ def fetch_recent_bing_infos(mkt,start_id):
             continue
         for bing_json_data in images:
             try:
-                bing_date = datetime.strptime(bing_json_data['enddate'], "%Y%m%d").strftime("%Y-%m-%d")
+                bing_date = util.to_local_date(bing_json_data['fullstartdate'])
                 if bing_date in exists_dates:
                     continue
                 json_data={}
