@@ -164,6 +164,33 @@ nohup ./start.sh > bing-api.log 2>&1 &
 
 > 注意：Netlify 部署不再需要配置任何环境变量（无需 MongoDB）。
 
+#### cloudflare部署
+
+> 由于 Cloudflare Workers 为 V8 运行时，本项目使用 JavaScript Worker 实现（`workers/api.js`）。data 目录作为**静态资产**随 Worker 一起部署（`wrangler.toml` 的 `[assets]` 配置，单文件上限 25 MiB），运行时通过 `DATA` 绑定读取，无需额外环境变量。
+
+1、将本项目 Fork 到你的 GitHub
+
+2、在 Cloudflare Dashboard 通过 Workers Builds 连接仓库自动部署（推荐，与 Vercel/Netlify 体验一致）：
+
+- Workers & Pages → Create → 导入 GitHub 仓库 `bing-wallpaper-api`
+- Production branch：选择包含 `wrangler.toml` 与 `data/` 的分支（如 `master`）
+- Framework preset：None；Build command：留空；Deploy command：`npx wrangler deploy`
+
+3、或使用 Wrangler CLI 手动部署：
+
+```shell
+npm install -g wrangler
+wrangler login
+wrangler deploy    # 在仓库根目录执行
+```
+
+4、部署完成后，通过 `https://bing-wallpaper-api.<你的子域>.workers.dev` 即可访问，接口路径与其他平台一致（`/today`、`/random`、`/all`、`/total`）
+
+> 注意：
+> - 数据更新即部署：GitHub Actions 每日更新 `data/*.json` 并推送后，Workers Builds 会自动触发重新部署，数据随之更新（与 Vercel/Netlify 行为一致）
+> - Fork 部署无需修改任何配置，数据文件随你的仓库一起部署
+> - 如需绑定自有域名：Dashboard → Worker → Settings → Domains & Routes 添加
+
 #### docker部署
 
 ```shell

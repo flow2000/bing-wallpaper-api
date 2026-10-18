@@ -1,0 +1,20 @@
+#:schema node_modules/wrangler/config-schema.json
+# Cloudflare Workers 配置：Bing Wallpaper API
+name = "bing-wallpaper-api"
+main = "workers/api.js"
+compatibility_date = "2025-01-01"
+workers_dev = true
+
+# 将 .ico 文件作为 Data 模块打包（/favicon.ico 路由以 ArrayBuffer 形式引用）
+rules = [
+  { type = "Data", globs = ["**/*.ico"] }
+]
+
+# 数据目录作为静态资产随 Worker 一起部署：
+# - GitHub Actions 每日更新 data/*.json 并推送后，Workers Builds 自动重新部署，数据即更新
+# - Worker 通过 DATA 绑定在运行时读取（见 workers/api.js 的 readJson），单文件上限 25 MiB，远大于数据实际体积
+# - run_worker_first：所有请求先进 Worker 路由，数据文件不直接对外暴露
+[assets]
+directory = "./data"
+binding = "DATA"
+run_worker_first = true
