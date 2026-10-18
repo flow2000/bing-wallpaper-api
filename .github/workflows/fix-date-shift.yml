@@ -24,7 +24,7 @@ jobs:
           python-version: '3.9'
 
       - name: Install dependencies
-        run: pip install pymongo
+        run: pip install pymongo requests
 
       - name: Run migration
         run: python bing_wallpaper_api/fix_date_shift.py
