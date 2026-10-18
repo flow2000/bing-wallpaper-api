@@ -1,5 +1,6 @@
 # Cloudflare Workers 部署（方案 B：由 GitHub Actions 负责，替代 Workers Builds）
-# push 到 dev/master 即自动部署；本配置为可选项，未配置 Secrets 时自动跳过，不影响其他流程。
+# push 到 master 即自动部署；本配置为可选项，未配置 Secrets 时自动跳过，不影响其他流程。
+# dev 分支测试时用 workflow_dispatch 手动运行（Actions → Run workflow → 选择 dev）。
 #
 # ── 最小权限 Token 申请步骤 ────────────────────────────────────────────
 # 1. Cloudflare Dashboard → 右上角头像 → My Profile → API Tokens → Create Token → Create Custom Token
@@ -15,7 +16,7 @@ name: Deploy to Cloudflare Workers
 
 on:
   push:
-    branches: [dev, master]
+    branches: [master]
   workflow_dispatch:
 
 permissions:
