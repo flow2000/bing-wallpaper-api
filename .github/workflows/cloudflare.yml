@@ -1,0 +1,55 @@
+# Cloudflare Workers 部署（方案 B：由 GitHub Actions 负责，替代 Workers Builds）
+# push 到 dev/master 即自动部署；本配置为可选项，未配置 Secrets 时自动跳过，不影响其他流程。
+#
+# ── 最小权限 Token 申请步骤 ────────────────────────────────────────────
+# 1. Cloudflare Dashboard → 右上角头像 → My Profile → API Tokens → Create Token → Create Custom Token
+# 2. 权限仅添加一条：Account | Workers Scripts | Edit
+#    （wrangler deploy 上传脚本与静态资产的最低要求；不要添加 Zone 或其他 Account 权限）
+# 3. Account Resources：Include → 选择你的账号（限定单账号）；IP 过滤与 TTL 有效期可选
+# 4. Continue to summary → Create Token，复制保存（仅显示一次）
+# 5. Account ID：Dashboard 任意页面右侧栏 / Workers & Pages 概览右下角
+# 6. GitHub 仓库 → Settings → Secrets and variables → Actions → New repository secret：
+#      CLOUDFLARE_API_TOKEN  = 第 4 步的 Token
+#      CLOUDFLARE_ACCOUNT_ID = 第 5 步的 Account ID
+name: Deploy to Cloudflare Workers
+
+on:
+  push:
+    branches: [dev, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cloudflare-deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Deploy to Cloudflare Workers
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          # 可选项：未配置 Secrets 时跳过
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "未配置 CLOUDFLARE_API_TOKEN / CLOUDFLARE_ACCOUNT_ID，跳过 Cloudflare 部署"
+            exit 0
+          fi
+          # 尚未合并 wrangler.toml 的分支同样跳过
+          if [ ! -f wrangler.toml ]; then
+            echo "当前分支不存在 wrangler.toml，跳过 Cloudflare 部署"
+            exit 0
+          fi
+          npx --yes wrangler@4 deploy
