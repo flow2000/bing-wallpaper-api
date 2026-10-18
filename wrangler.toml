@@ -10,8 +10,11 @@ rules = [
   { type = "Data", globs = ["**/*.ico"] }
 ]
 
-# 数据文件基准地址：Worker 运行时从该地址拉取 <mkt>_all.json（边缘缓存 1 小时）
-# Fork 部署时改为自己的仓库地址，分支需包含 data/*.json：
-# DATA_BASE = "https://raw.githubusercontent.com/<你的用户名>/bing-wallpaper-api/master/data"
-[vars]
-DATA_BASE = "https://raw.githubusercontent.com/flow2000/bing-wallpaper-api/master/data"
+# 数据目录作为静态资产随 Worker 一起部署：
+# - GitHub Actions 每日更新 data/*.json 并推送后，Workers Builds 自动重新部署，数据即更新
+# - Worker 通过 DATA 绑定在运行时读取（见 workers/api.js 的 readJson），单文件上限 25 MiB，远大于数据实际体积
+# - run_worker_first：所有请求先进 Worker 路由，数据文件不直接对外暴露
+[assets]
+directory = "./data"
+binding = "DATA"
+run_worker_first = true

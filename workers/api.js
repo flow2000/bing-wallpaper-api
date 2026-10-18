@@ -7,9 +7,9 @@
  *
  * 数据来源：
  * - /today 接口：实时请求必应官方接口，返回最新壁纸
- * - /random、/all、/total 接口：运行时从 GitHub raw 拉取 data/<mkt>_all.json
- *   （data 目录总计约 8MB，超出 Workers 免费套餐 1MiB 打包限制，故不随 Worker 打包；
- *     拉取结果在 Cloudflare 边缘缓存 1 小时，每日数据更新无需重新部署）
+ * - /random、/all、/total 接口：读取随 Worker 一起部署的静态资产 data/<mkt>_all.json
+ *   （data 目录通过 wrangler.toml 的 [assets] 配置上传，运行时经 DATA 绑定读取；
+ *     GitHub Actions 每日推送数据后 Workers Builds 自动重新部署，数据即更新）
  *
  * 路由列表：
  *   /           - 返回部署成功信息（支持 HEAD 探活）
@@ -44,10 +44,7 @@ const YEAR_LIMIT = 366;
 // 普通查询时单页最大返回条数
 const LIMIT_DATA = 100;
 
-// 数据文件默认基准地址（上游仓库 master 分支 data 目录），可通过环境变量 DATA_BASE 覆盖（Fork 部署时修改）
-const DEFAULT_DATA_BASE = "https://raw.githubusercontent.com/flow2000/bing-wallpaper-api/master/data";
-// 数据 JSON 在 Cloudflare 边缘的缓存时间（秒），与接口缓存策略一致：1 小时
-const DATA_CACHE_TTL = 3600;
+// 注：数据文件不再通过 GitHub raw 拉取，而是随部署上传为静态资产（见 wrangler.toml 的 [assets]）
 
 // ---------- CDN 缓存策略 ----------
 // 每日更新的数据（/today、/all、/total、/）：缓存 1 小时
@@ -133,12 +130,9 @@ function redirect(url, cacheControl) {
  * @returns {Promise<object|null>} 解析后的 JSON 对象，失败返回 null
  */
 async function readJson(env, mkt) {
-  const base = (env && env.DATA_BASE) || DEFAULT_DATA_BASE;
   try {
-    const res = await fetch(base + "/" + mkt + "_all.json", {
-      // 强制边缘缓存 1 小时：GitHub raw 默认仅缓存 5 分钟
-      cf: { cacheTtl: DATA_CACHE_TTL, cacheEverything: true },
-    });
+    // 经 DATA 绑定读取随部署上传的静态资产（URL host 部分会被忽略，仅路径参与匹配）
+    const res = await env.DATA.fetch("https://assets.internal/" + mkt + "_all.json");
     if (!res.ok) return null;
     return await res.json();
   } catch (e) {
