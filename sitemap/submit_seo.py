@@ -55,7 +55,7 @@ REPO_ROOT = os.path.join(BASE_DIR, "..")
 SITEMAP_PATH = os.path.join(REPO_ROOT, "sitemap", "sitemap.xml")
 SITEMAP_GIT_PATH = "sitemap/sitemap.xml"
 
-INDEXNOW_KEY = "7fceb212b40246d69ee07027523c9f0a"
+INDEXNOW_KEY = os.environ.get("INDEXNOW_KEY", "").strip()
 INDEXNOW_API = "https://api.indexnow.org/IndexNow"
 
 BAIDU_API = "http://data.zz.baidu.com/urls?site={site}&token={token}".format(
@@ -191,6 +191,9 @@ def _truncate(urls, limit):
 
 
 def submit_indexnow(urls):
+    if not INDEXNOW_KEY:
+        print("[IndexNow] 未设置 INDEXNOW_KEY，跳过必应收录提交")
+        return
     total = len(urls)
     if total == 0:
         print("[IndexNow] 无待提交链接，跳过")

@@ -70,4 +70,5 @@ jobs:
         continue-on-error: true
         env:
           BAIDU_TOKEN: ${{ secrets.BAIDU_TOKEN }}
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
         run: python sitemap/submit_seo.py
