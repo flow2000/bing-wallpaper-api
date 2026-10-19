@@ -1,6 +1,5 @@
-# Cloudflare Workers 部署（方案 B：由 GitHub Actions 负责，替代 Workers Builds）
-# push 到 master 即自动部署；本配置为可选项，未配置 Secrets 时自动跳过，不影响其他流程。
-# dev 分支测试时用 workflow_dispatch 手动运行（Actions → Run workflow → 选择 dev）。
+# Cloudflare Workers 部署（由 GitHub Actions 统一负责 bing-wallpaper-api 与 bing-wallpaper 两个项目）
+# push 到 master 即自动部署；未配置 Secrets 时整体跳过，不影响其他流程。
 #
 # ── 最小权限 Token 申请步骤 ────────────────────────────────────────────
 # 1. Cloudflare Dashboard → 右上角头像 → My Profile → API Tokens → Create Token → Create Custom Token
@@ -29,28 +28,57 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Check Secrets
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "未配置 CLOUDFLARE_API_TOKEN / CLOUDFLARE_ACCOUNT_ID，跳过 Cloudflare 部署"
+            exit 0
+          fi
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Deploy to Cloudflare Workers
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - name: Checkout (bing-wallpaper-api)
+        uses: actions/checkout@v4
+
+      # ── 1. 部署 bing-wallpaper-api（API Worker + data 静态资产） ──
+      - name: Deploy bing-wallpaper-api
         run: |
-          # 可选项：未配置 Secrets 时跳过
-          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
-            echo "未配置 CLOUDFLARE_API_TOKEN / CLOUDFLARE_ACCOUNT_ID，跳过 Cloudflare 部署"
-            exit 0
-          fi
-          # 尚未合并 wrangler.toml 的分支同样跳过
           if [ ! -f wrangler.toml ]; then
-            echo "当前分支不存在 wrangler.toml，跳过 Cloudflare 部署"
+            echo "当前分支不存在 wrangler.toml，跳过 bing-wallpaper-api 部署"
             exit 0
           fi
           npx --yes wrangler@4 deploy
+
+      # ── 2. 部署 bing-wallpaper（站点静态资源） ──
+      - name: Checkout (bing-wallpaper)
+        uses: actions/checkout@v4
+        with:
+          repository: flow2000/bing-wallpaper
+          path: bing-wallpaper
+          ref: master
+
+      - name: Build bing-wallpaper
+        working-directory: bing-wallpaper
+        run: |
+          npm ci
+          NODE_OPTIONS=--openssl-legacy-provider npm run build
+
+      - name: Deploy bing-wallpaper
+        working-directory: bing-wallpaper
+        run: |
+          # 用无 [build] 的配置部署，避免 wrangler 重复执行构建（webpack 3 需 NODE_OPTIONS）
+          cat > wrangler.deploy.toml <<'EOF'
+          name = "bing-wallpaper"
+          compatibility_date = "2024-09-01"
+          [assets]
+          directory = "dist"
+          not_found_handling = "single-page-application"
+          EOF
+          npx --yes wrangler@4 deploy --config wrangler.deploy.toml
