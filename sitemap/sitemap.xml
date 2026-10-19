@@ -14,19 +14,19 @@
   </url>
   <url>
     <loc>https://bimg.cc/region/zh-CN.html</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://bimg.cc/region/en-US.html</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://bimg.cc/region/ja-JP.html</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
@@ -65,6 +65,12 @@
     <lastmod>2026-10-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://bimg.cc/wallpaper/detail/zh-CN-3881.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bimg.cc/wallpaper/detail/zh-CN-3880.html</loc>
@@ -23317,6 +23323,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://bimg.cc/wallpaper/detail/en-US-1631.html</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://bimg.cc/wallpaper/detail/en-US-1630.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>yearly</changefreq>
@@ -33093,6 +33105,12 @@
   <url>
     <loc>https://bimg.cc/wallpaper/detail/en-US-1.html</loc>
     <lastmod>2022-04-27</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bimg.cc/wallpaper/detail/ja-JP-1634.html</loc>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>
