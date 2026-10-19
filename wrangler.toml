@@ -1,6 +1,6 @@
 #:schema node_modules/wrangler/config-schema.json
 # Cloudflare Workers 配置：Bing Wallpaper API
-name = "bing-wallpaper-api"
+name = "api-bimg"
 main = "workers/api.js"
 compatibility_date = "2025-01-01"
 workers_dev = true

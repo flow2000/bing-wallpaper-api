@@ -75,7 +75,7 @@ jobs:
         run: |
           # 用无 [build] 的配置部署，避免 wrangler 重复执行构建（webpack 3 需 NODE_OPTIONS）
           cat > wrangler.deploy.toml <<'EOF'
-          name = "bing-wallpaper"
+          name = "www-bimg"
           compatibility_date = "2024-09-01"
           [assets]
           directory = "dist"
