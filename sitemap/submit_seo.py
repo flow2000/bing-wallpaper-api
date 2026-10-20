@@ -11,9 +11,15 @@
 
 二、本次新增的壁纸详情页（必应 IndexNow + 百度）：
   详情页  https://bimg.cc/wallpaper/detail/{mkt}-{id}.html
-新增判定：对比本次 GitHub Actions 运行开始时的基线提交（环境变量
-GITHUB_SHA）中的 sitemap/sitemap.xml 与当前工作区刚生成的
-sitemap/sitemap.xml，取 URL 差集，仅提交这些新增页面，不再全量提交。
+新增判定：对比基线提交中的 sitemap.xml 与当前刚生成的 sitemap.xml，
+取 URL 差集，仅提交这些新增页面，不再全量提交。
+
+基线提交：
+- 本地运行模式：基线为环境变量 GITHUB_SHA（不存在时回退 HEAD^），
+  sitemap 位于本仓库 sitemap/sitemap.xml；
+- 公共管线模式（composite action 传入 SITEMAP_REPO，如 bing-wallpaper）：
+  基线为该站点仓库检出目录的 HEAD（即本次提交前的旧版本），
+  sitemap 位于该检出的 static/sitemap.xml。
 
 百度每日配额有限（默认 20 条），固定页面不重复占用百度配额，仅提交新增详情页。
 
@@ -52,8 +58,17 @@ REGIONS = [
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT = os.path.join(BASE_DIR, "..")
-SITEMAP_PATH = os.path.join(REPO_ROOT, "sitemap", "sitemap.xml")
-SITEMAP_GIT_PATH = "sitemap/sitemap.xml"
+
+# 可选环境变量：站点仓库检出目录名（composite action 传入，如 bing-wallpaper）。
+# 设置后 sitemap 读写与基线对比均以该检出为准（基线为该检出的 HEAD）。
+SITEMAP_REPO = os.environ.get("SITEMAP_REPO", "").strip()
+if SITEMAP_REPO:
+    REPO_ROOT = os.path.join(REPO_ROOT, SITEMAP_REPO)
+    SITEMAP_PATH = os.path.join(REPO_ROOT, "static", "sitemap.xml")
+    SITEMAP_GIT_PATH = "static/sitemap.xml"
+else:
+    SITEMAP_PATH = os.path.join(REPO_ROOT, "sitemap", "sitemap.xml")
+    SITEMAP_GIT_PATH = "sitemap/sitemap.xml"
 
 INDEXNOW_KEY = os.environ.get("INDEXNOW_KEY", "").strip()
 INDEXNOW_API = "https://api.indexnow.org/IndexNow"
@@ -93,6 +108,9 @@ def _git_show(ref, rel_path):
 
 
 def baseline_ref():
+    """返回基线提交：管线模式用站点仓库检出的 HEAD，否则用 GITHUB_SHA。"""
+    if SITEMAP_REPO:
+        return "HEAD"
     ref = os.environ.get("GITHUB_SHA", "").strip()
     return ref or "HEAD^"
 

@@ -3,9 +3,10 @@
 """
 从本仓库 data 目录的 {mkt}_all.json 生成 bimg.cc 的 sitemap.xml。
 
-数据流向：本脚本在 bing-wallpaper-api 仓库内运行，直接读取本地 data/*.json；
-生成的 sitemap.xml 提交到本仓库 sitemap/sitemap.xml，站点仓库 bing-wallpaper
-在构建时（prebuild 钩子）从 GitHub raw 拉取该文件打包进 dist。
+数据流向：由分地区工作流调用的公共管线（.github/actions/post-update-pipeline）
+执行本脚本，读取本仓库 data/*.json，通过 -o 指定输出到站点仓库 bing-wallpaper
+检出目录的 static/sitemap.xml，随后由管线提交推送到站点仓库，各部署平台
+（Netlify / Vercel / Cloudflare）在推送上自动构建时一并打包进 dist。
 
 包含的页面类型（按 SEO 优先级排序）：
   1. 首页        https://bimg.cc/index.html          priority=1.0  changefreq=daily
@@ -17,9 +18,9 @@
 URL 格式与壁纸项目 prerender.js 保持一致。
 
 用法：
-  python sitemap/generate_sitemap.py                 # 生成所有地区的 sitemap.xml
-  python sitemap/generate_sitemap.py zh-CN           # 仅生成指定地区的 sitemap.xml
-  python sitemap/generate_sitemap.py -o sitemap.xml  # 指定输出文件路径
+  python sitemap/generate_sitemap.py                       # 生成所有地区的 sitemap.xml（默认输出 sitemap/sitemap.xml）
+  python sitemap/generate_sitemap.py zh-CN                 # 仅生成指定地区的 sitemap.xml
+  python sitemap/generate_sitemap.py -o ../bing-wallpaper/static/sitemap.xml  # 指定输出文件路径
 """
 import json
 import os

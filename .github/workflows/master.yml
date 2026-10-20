@@ -1,12 +1,13 @@
 permissions:
   contents: write
-name: update-bing-walpaper
+name: 更新必应壁纸数据（全量地区）
 
 on:
   push:
     branches:
      - master
-  # 定时任务已按地区拆分到同目录下的 <地区>.yml，在各时区凌晨错峰触发（分钟依次错开，避免触发 GitHub 限流）
+  # 定时任务已按地区拆分到同目录下的 <地区>.yml，在各时区凌晨错峰触发（分钟依次错开，避免触发 GitHub 限流），
+  # 各地区工作流完成数据更新后继续执行 sitemap 生成、站点仓库提交与部署（见 .github/actions/post-update-pipeline）
   workflow_dispatch:
   repository_dispatch:
     types:

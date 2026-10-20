@@ -1,0 +1,125 @@
+# 分地区数据更新后的公共管线（composite action）
+# 由 9 个分地区工作流在各自数据提交之后调用，依次完成：
+#   1. 检出站点仓库 bing-wallpaper（使用有该仓库写权限的 PAT，GitHub 默认 GITHUB_TOKEN 无法跨仓库推送）
+#   2. 读取本仓库 data/*.json 全量生成 sitemap.xml，输出到站点仓库 static/ 目录
+#   3. 向必应 IndexNow / 百度提交新增壁纸详情页（在站点仓库 git 提交之前执行，
+#      以检出时的 HEAD 为基线做增量对比，避免重复提交）
+#   4. sitemap.xml 提交并推送到站点仓库 master（推送即触发 Netlify / Vercel 平台端自动构建部署）
+#   5. 使用 wrangler 重新部署 API Worker（data/*.json 作为静态资产随部署上传，数据更新后需重新部署）
+#   6. 使用 wrangler 部署站点（站点 wrangler.toml 的 [build] 命令由部署端自行构建 dist）
+# Cloudflare 两个 secret 未配置时自动跳过第 5、6 步；百度 / IndexNow secret 未配置时按脚本逻辑各自跳过。
+
+name: 生成站点地图并部署
+description: 分地区数据更新后的公共管线（生成 sitemap → 提交站点仓库 → SEO 收录 → Cloudflare 部署）
+
+inputs:
+  region:
+    description: 当前更新的地区代码（如 zh-CN），用于站点仓库提交信息
+    required: true
+  frontend_token:
+    description: 对 flow2000/bing-wallpaper 有 contents:write 权限的 PAT（站点仓库推送凭据）
+    required: true
+  cf_api_token:
+    description: Cloudflare API Token（可选，未配置则跳过 Cloudflare 部署）
+    required: false
+    default: ''
+  cf_account_id:
+    description: Cloudflare Account ID（可选，未配置则跳过 Cloudflare 部署）
+    required: false
+    default: ''
+  baidu_token:
+    description: 百度搜索推送 token（可选，未配置则跳过百度提交）
+    required: false
+    default: ''
+  indexnow_key:
+    description: IndexNow key（可选，未配置则跳过必应收录提交）
+    required: false
+    default: ''
+
+runs:
+  using: composite
+  steps:
+    - name: 检出站点仓库 bing-wallpaper
+      uses: actions/checkout@v4
+      with:
+        repository: flow2000/bing-wallpaper
+        ref: master
+        path: bing-wallpaper
+        token: ${{ inputs.frontend_token }}
+
+    - name: 生成 sitemap.xml
+      # 全量生成（首页 + 关于页 + 9 个地区页 + 全部壁纸详情页），
+      # 地区数据读取自本仓库 data/{mkt}_all.json，输出到站点仓库 static/ 目录
+      shell: bash
+      run: |
+        python sitemap/generate_sitemap.py -o bing-wallpaper/static/sitemap.xml
+
+    - name: 向搜索引擎提交新收录链接
+      # 在站点仓库 git 提交之前执行：以检出时的 HEAD 为基线对比新增详情页，只提交增量
+      continue-on-error: true
+      shell: bash
+      env:
+        SITEMAP_REPO: bing-wallpaper
+        BAIDU_TOKEN: ${{ inputs.baidu_token }}
+        INDEXNOW_KEY: ${{ inputs.indexnow_key }}
+      run: |
+        python sitemap/submit_seo.py
+
+    - name: 提交 sitemap.xml 到站点仓库
+      shell: bash
+      run: |
+        cd bing-wallpaper
+        git config --local user.email "1982989137@qq.com"
+        git config --local user.name "flow2000"
+        git add static/sitemap.xml
+        if git diff --staged --quiet; then
+          echo 'no commit'
+          exit 0
+        fi
+        # 站点仓库可能有并发推送：先暂存本地变更，与远端 rebase 对齐后再恢复，避免 non-fast-forward
+        git stash push -m "sitemap-tmp" -- static/sitemap.xml
+        git pull --rebase origin master
+        git stash pop
+        git add static/sitemap.xml
+        git commit -m "update sitemap.xml ${{ inputs.region }}"
+
+    - name: 推送 sitemap.xml 到站点仓库
+      # 原生 git push 带退避重试：远端临时拒绝（如二次限流 commit_refs）时自动重试；
+      # 推送成功后 Netlify / Vercel 的 Git 集成会自动构建并部署
+      shell: bash
+      run: |
+        cd bing-wallpaper
+        for i in 1 2 3; do
+          git push origin master && exit 0
+          echo "push failed, retry in $((i*30))s"
+          sleep $((i*30))
+          git pull --rebase origin master
+        done
+        exit 1
+
+    - name: 部署 API Worker
+      # data/*.json 更新后需重新部署，让云端静态资产与 Worker 同步；未配置 Cloudflare secret 时跳过
+      shell: bash
+      env:
+        CLOUDFLARE_API_TOKEN: ${{ inputs.cf_api_token }}
+        CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cf_account_id }}
+      run: |
+        if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+          echo "未配置 CLOUDFLARE_API_TOKEN / CLOUDFLARE_ACCOUNT_ID，跳过 API Worker 部署"
+          exit 0
+        fi
+        npx --yes wrangler@4 deploy
+
+    - name: 部署站点到 Cloudflare
+      # 站点 wrangler.toml 的 [build] 命令会由 wrangler 自行执行 npm ci + npm run build，无需预构建 dist
+      shell: bash
+      env:
+        CLOUDFLARE_API_TOKEN: ${{ inputs.cf_api_token }}
+        CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cf_account_id }}
+      run: |
+        if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+          echo "未配置 CLOUDFLARE_API_TOKEN / CLOUDFLARE_ACCOUNT_ID，跳过站点部署"
+          exit 0
+        fi
+        cd bing-wallpaper
+        npx --yes wrangler@4 deploy
