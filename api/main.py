@@ -83,7 +83,6 @@ async def index(request: Request):
         async with aiohttp.ClientSession() as session:
             version_links=[
                 "https://blog.aqcoder.cn/code/txt/version/bing-wallpaper-api.txt",
-                "https://static.aqcoder.cn/txt/version/bing-wallpaper-api.txt",
             ]
             tasks = [asyncio.create_task(fetch(session, link)) for link in version_links]
             done, pending = await asyncio.wait(tasks)
