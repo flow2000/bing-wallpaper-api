@@ -18,3 +18,9 @@ rules = [
 directory = "./data"
 binding = "DATA"
 run_worker_first = true
+
+[observability.logs]
+enabled = true
+
+[observability.traces]
+enabled = true
