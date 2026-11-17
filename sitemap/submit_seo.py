@@ -6,6 +6,7 @@
 一、固定页面（每天必提，仅必应 IndexNow；URL 不随壁纸数据变化）：
   首页    https://bimg.cc/index.html
   关于页  https://bimg.cc/about.html
+  精选页  https://bimg.cc/amazing.html
   地区页  https://bimg.cc/region/{mkt}.html
 即使当天没有新增壁纸，这些固定页面也会每天向必应 IndexNow 提交一次。
 
@@ -180,7 +181,7 @@ def collect_new_urls():
 
 
 def collect_fixed_urls():
-    """收集 bimg.cc 固定页面 URL：首页、关于页、各地区页。
+    """收集 bimg.cc 固定页面 URL：首页、关于页、精选页、各地区页。
 
     这些 URL 不随壁纸数据增减而变化，但首页/地区页内容每日更新，
     因此每天都向必应 IndexNow 提交一次，提示搜索引擎重新抓取。
@@ -189,6 +190,7 @@ def collect_fixed_urls():
     urls = [
         "{site}/index.html".format(site=SITE),
         "{site}/about.html".format(site=SITE),
+        "{site}/amazing.html".format(site=SITE),
     ]
     urls.extend(
         "{site}/region/{mkt}.html".format(site=SITE, mkt=mkt)

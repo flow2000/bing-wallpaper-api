@@ -11,8 +11,9 @@
 包含的页面类型（按 SEO 优先级排序）：
   1. 首页        https://bimg.cc/index.html          priority=1.0  changefreq=daily
   2. 关于页      https://bimg.cc/about.html          priority=0.5  changefreq=monthly
-  3. 地区页      https://bimg.cc/region/{mkt}.html   priority=0.9  changefreq=daily
-  4. 壁纸详情页  https://bimg.cc/wallpaper/detail/{mkt}-{id}.html
+  3. 精选页      https://bimg.cc/amazing.html        priority=0.5  changefreq=monthly
+  4. 地区页      https://bimg.cc/region/{mkt}.html   priority=0.9  changefreq=daily
+  5. 壁纸详情页  https://bimg.cc/wallpaper/detail/{mkt}-{id}.html
                                                         priority=0.8  changefreq=yearly
 
 URL 格式与壁纸项目 prerender.js 保持一致。
@@ -153,7 +154,17 @@ def generate_sitemap(regions, output_path):
     )
     total += 1
 
-    # ---------- 3. 地区页 ----------
+    # ---------- 3. 精选页 ----------
+    _add_url(
+        urlset,
+        loc=SITE + "/amazing.html",
+        lastmod=today,
+        changefreq="monthly",
+        priority="0.5",
+    )
+    total += 1
+
+    # ---------- 4. 地区页 ----------
     for mkt in regions:
         wallpapers = fetch_wallpapers(mkt)
         region_data[mkt] = wallpapers
@@ -168,7 +179,7 @@ def generate_sitemap(regions, output_path):
         )
         total += 1
 
-    # ---------- 4. 壁纸详情页 ----------
+    # ---------- 5. 壁纸详情页 ----------
     for mkt in regions:
         wallpapers = region_data.get(mkt, [])
         for pid, dt in wallpapers:
@@ -196,8 +207,8 @@ def generate_sitemap(regions, output_path):
     with open(output_path, "wb") as f:
         f.write(pretty_xml)
 
-    detail_count = total - 2 - len(regions)
-    print("[sitemap] 总计 {total} 条 URL（首页 1 + 关于页 1 + 地区页 {nr} + 详情页 {nd}），已写入: {path}".format(
+    detail_count = total - 3 - len(regions)
+    print("[sitemap] 总计 {total} 条 URL（首页 1 + 关于页 1 + 精选页 1 + 地区页 {nr} + 详情页 {nd}），已写入: {path}".format(
         total=total,
         nr=len(regions),
         nd=detail_count,
