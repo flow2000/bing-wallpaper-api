@@ -86,6 +86,15 @@ def merge_json_missing_dates_to_database():
         except Exception as e:
             print("跳过"+mkt+"：JSON 缺失日期补入数据库失败，本次跳过："+str(e))
 
+# 按日期升序把数据库 id 重排为 1..N，保证 id 与日期顺序一致
+def renumber_database_ids():
+    for mkt in get_locations():
+        try:
+            total, changed = renumber_ids(mkt)
+            print(mkt+":id 已按日期重排，共"+str(total)+"条，本次变更"+str(changed)+"条")
+        except Exception as e:
+            print("跳过"+mkt+"：id 重排失败："+str(e))
+
 # 封装json响应结构并写入json文件
 def write_bing_json(mkt,json_data):
     NOW_DATE=time.strftime("%Y-%m-%d %H:%M:%S",time.localtime())
@@ -144,5 +153,7 @@ if __name__=='__main__':
         add_data_to_database()
         # 把 JSON 中数据库缺失的日期补进数据库
         merge_json_missing_dates_to_database()
+        # 按日期顺序重排数据库 id
+        renumber_database_ids()
         # 添加数据到json 
         add_data_to_json()

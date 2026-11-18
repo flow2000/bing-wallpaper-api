@@ -100,6 +100,15 @@ def fix_database_omission_bing():
 
     pass
 
+# 按日期升序把数据库 id 重排为 1..N，保证 id 与日期顺序一致
+def renumber_database_ids():
+    for mkt in get_locations():
+        try:
+            total, changed = renumber_ids(mkt)
+            print(mkt+":id 已按日期重排，共"+str(total)+"条，本次变更"+str(changed)+"条")
+        except Exception as e:
+            print("跳过"+mkt+"：id 重排失败："+str(e))
+
 
 """
 补充json文件漏下的壁纸信息
@@ -148,6 +157,8 @@ if __name__ == '__main__':
     else:
         # 补充数据库漏下的壁纸信息
         fix_database_omission_bing()
+        # 按日期顺序重排数据库 id
+        renumber_database_ids()
 
     # 补充json文件漏下的壁纸信息
     fix_file_omission_bing()

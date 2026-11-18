@@ -1,4 +1,4 @@
-from pymongo import MongoClient
+from pymongo import MongoClient, UpdateOne
 import os
 import random
 
@@ -92,6 +92,21 @@ def get_count(mkt):
 def get_all_data(mkt):
     collection = db_init(mkt)
     return collection.find({},{"_id":0}).sort("datetime",-1)
+
+'''
+按日期升序把 id 重排为 1..N（同日期按 url、_id 排序）
+@mkt 地区
+@return (文档总数, 变更条数)
+'''
+def renumber_ids(mkt):
+    collection = db_init(mkt)
+    docs = list(collection.find({}, {"datetime": 1, "url": 1, "id": 1}))
+    docs.sort(key=lambda d: (d.get('datetime') or '', d.get('url') or '', str(d.get('_id'))))
+    ops = [UpdateOne({"_id": d["_id"]}, {"$set": {"id": index}})
+           for index, d in enumerate(docs, 1) if d.get("id") != index]
+    if ops:
+        collection.bulk_write(ops)
+    return len(docs), len(ops)
 
 '''
 查询json分页数据
