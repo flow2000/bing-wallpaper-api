@@ -57,6 +57,35 @@ def add_data_to_database():
         except util.BingResponseError as e:
             print("跳过"+mkt+"：必应接口数据异常，本次不更新："+str(e))
 
+# 把 data/<mkt>_all.json 中数据库缺失的日期补进数据库（只新增，不改动已有记录）
+# 用于历史缺口补录：JSON 先补齐，再由每日任务同步进数据库，避免被数据库回写覆盖
+def merge_json_missing_dates_to_database():
+    for mkt in get_locations():
+        path = f'data/{mkt}_all.json'
+        if not os.path.exists(path):
+            continue
+        try:
+            db_data = list(get_all_data(mkt))
+            db_dates = {item['datetime'] for item in db_data}
+            used_ids = {item.get('id') for item in db_data}
+            next_id = max([item.get('id') or 0 for item in db_data], default=0)
+            for item in read_json(mkt)['data']:
+                if item['datetime'] in db_dates:
+                    continue
+                item = dict(item)
+                item.pop('_id', None)
+                if item.get('id') in used_ids:
+                    while next_id in used_ids:
+                        next_id += 1
+                    item['id'] = next_id
+                used_ids.add(item.get('id'))
+                next_id = max(next_id, item.get('id') or 0)
+                insert_one(mkt, item)
+                db_dates.add(item['datetime'])
+                print(mkt+":"+item['datetime']+":JSON 独有日期已补入数据库")
+        except Exception as e:
+            print("跳过"+mkt+"：JSON 缺失日期补入数据库失败，本次跳过："+str(e))
+
 # 封装json响应结构并写入json文件
 def write_bing_json(mkt,json_data):
     NOW_DATE=time.strftime("%Y-%m-%d %H:%M:%S",time.localtime())
@@ -113,5 +142,7 @@ if __name__=='__main__':
         init_data_to_database()
         # 添加数据库数据
         add_data_to_database()
+        # 把 JSON 中数据库缺失的日期补进数据库
+        merge_json_missing_dates_to_database()
         # 添加数据到json 
         add_data_to_json()
