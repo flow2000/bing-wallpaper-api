@@ -1,8 +1,18 @@
 {
   "code": 200,
   "msg": "操作成功",
-  "total": 1666,
+  "total": 1667,
   "data": [
+    {
+      "id": 1667,
+      "title": "Quand les idées prennent forme",
+      "url": "https://bing.com/th?id=OHR.KnowledgeSculpture_FR-FR2837374405_1920x1080.jpg",
+      "datetime": "2026-11-19",
+      "copyright": "\"Body of Knowledge\" sculpture de Jaume Plensa, Université Goethe de Francfort, Allemagne (© Todamo/Shutterstock)",
+      "copyrightlink": "https://www.bing.com/search?q=Journ%C3%A9e+mondiale+de+la+philosophie&form=hpcapt&filters=HpDate%3a%2220261118_2300%22",
+      "hsh": "d022fd86cb57e7eeaff0507b8a29cb85",
+      "created_time": "2026-11-19"
+    },
     {
       "id": 1666,
       "title": "Chasser du crépuscule à l’aube",
