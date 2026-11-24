@@ -1,8 +1,18 @@
 {
   "code": 200,
   "msg": "操作成功",
-  "total": 1671,
+  "total": 1672,
   "data": [
+    {
+      "id": 1672,
+      "title": "Autumnal camouflage",
+      "url": "https://bing.com/th?id=OHR.CairngormsSquirrel_EN-IN7928513964_1920x1080.jpg",
+      "datetime": "2026-11-24",
+      "copyright": "Red squirrel in Cairngorms National Park, Highlands, Scotland (© Scotland: The Big Picture/Minden Pictures)",
+      "copyrightlink": "https://www.bing.com/search?q=Eurasian+red+squirrel&form=hpcapt&filters=HpDate%3a%2220261123_1830%22",
+      "hsh": "42e0be1feca2f73d6f3299bc9491931d",
+      "created_time": "2026-11-24"
+    },
     {
       "id": 1671,
       "title": "Geometry in nature",
