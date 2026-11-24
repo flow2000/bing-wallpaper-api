@@ -1,8 +1,18 @@
 {
   "code": 200,
   "msg": "操作成功",
-  "total": 1671,
+  "total": 1672,
   "data": [
+    {
+      "id": 1672,
+      "title": "Camouflage d’automne",
+      "url": "https://bing.com/th?id=OHR.CairngormsSquirrel_FR-FR2394488770_1920x1080.jpg",
+      "datetime": "2026-11-24",
+      "copyright": "Écureuil roux dans le parc national des Cairngorms, Highlands, Écosse (© Scotland: The Big Picture/Minden Pictures)",
+      "copyrightlink": "https://www.bing.com/search?q=%C3%A9cureuil+roux&form=hpcapt&filters=HpDate%3a%2220261123_2300%22",
+      "hsh": "a73e1266209fb640a3a4054a754c3f73",
+      "created_time": "2026-11-24"
+    },
     {
       "id": 1671,
       "title": "Géométrie au naturel",
